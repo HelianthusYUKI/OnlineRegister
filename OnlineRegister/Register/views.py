@@ -149,3 +149,24 @@ def del_hospital(request):
 
     else:
         raise Http404
+
+
+def show_department(request):
+    print("show dep")
+    dep1 = Department.objects.filter(level=0)
+
+    return render(request, 'admin_dep_wh.html', {'departments_1':dep1})
+
+
+def show_dep2(request):
+    print("show dep2")
+
+    if request.method == "POST":
+        dep1_code = request.POST.get('dep1')
+
+        dep2 = Department.objects.filter(level=dep1_code)
+
+        return render(request, 'dep2_items.html',{'departments_2':dep2} )
+
+    else:
+        raise Http404

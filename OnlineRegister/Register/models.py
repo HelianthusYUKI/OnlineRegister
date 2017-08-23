@@ -37,7 +37,7 @@ class Hospital(models.Model):
 class Department(models.Model):
     name = models.CharField(max_length=50, null=False)
     code = models.CharField(max_length=50, null=False)
-    level = models.IntegerField()
+    level = models.IntegerField() #level值为0表示为一级科室，>0表示为二级，且数字代表其一级科室的code
 
 class Department_Triage(models.Model):
     department_id = models.ForeignKey(Department)

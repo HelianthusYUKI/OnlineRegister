@@ -20,4 +20,7 @@ urlpatterns = [
     url(r'^alter_hospital/$',alter_hospital),
     url(r'^del_hospital/$',del_hospital),
 
+    url(r'^show_dep2/$',show_dep2),
+    url(r'^show_department/$',show_department),
+
 ]
