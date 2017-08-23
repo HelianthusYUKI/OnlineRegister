@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>医院信息维护－系统管理员</title>
+</head>
+<body>
+    <div id="wrapper">
+
+    <!--最上面的导航栏集成于.headerer-->
+    <div class="headerer">
+
+
+    </div>
+
+
+    <!--这个nav是左边的东西-->
+    <div class="admin_left">
+
+    </div>
+    <div style="display:none;">
+      <input id="cou_id_holder" value="{{cou.id}}" >
+    </div>
+
+    <!--  这个page-wrapper是右边   -->
+    <div id="page-wrapper">
+        <div class="header">
+            <h1 class="page-header">
+                医院信息
+            </h1>
+            <!--可选择返回的不知道叫什么的东西-->
+            <ol class="breadcrumb">
+                <li><a href="../../">{{cou.name}}</a></li>
+                <li class="active">医院信息</li>
+            </ol>
+        </div>
+
+        <!--这是我们操作的主题框-->
+        <div id="page-inner">
+            <!--新增课程表格-->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">医院列表</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-horizontal">
+
+                                <div class="form-group" style="float: left">
+                                    <label class="col-md-2 control-label">省：</label>
+                                    <div class="col-md-10">
+                                        <select class="form-control" id = "province" >
+                                            <option value="beijing">北京市</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="float: left">
+                                    <label class="col-md-2 control-label">市：</label>
+                                    <div class="col-md-10">
+                                        <select class="form-control" id = "city" >
+                                            <option value="beijing">北京市</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="float: left">
+                                    <label class="col-md-2 control-label">区：</label>
+                                    <div class="col-md-10">
+                                        <select class="form-control" id = "search_district" onchange="districtSelected()">
+                                            <option value=110101 >东城区</option>
+                                            <option value=110102 >西城区</option>
+                                            <option value=110105 >朝阳区</option>
+                                            <option value=110108 >海淀区</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div style="float: right"></div>
+                                <div class="list-hospital-item"></div>
+
+                                <!--<div class="form-group">-->
+                                    <!--<div class="col-sm-offset-2 col-sm-10">-->
+                                        <!--<button type="submit" class="btn btn-default">提交</button>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">医院增添</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-horizontal">
+
+                                <div class="form-group" style="float: left">
+                                    <label class="col-md-2 control-label">省：</label>
+                                    <div class="col-md-10">
+                                        <select class="form-control" id = "province" >
+                                            <option value="beijing">北京市</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="float: left">
+                                    <label class="col-md-2 control-label">市：</label>
+                                    <div class="col-md-10">
+                                        <select class="form-control" id = "city" >
+                                            <option value="beijing">北京市</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="float: left">
+                                    <label class="col-md-2 control-label">区：</label>
+                                    <div class="col-md-10">
+                                        <select class="form-control" id = "add_district" >
+                                            <option value=110101 >东城区</option>
+                                            <option value=110102 >西城区</option>
+                                            <option value=110105 >朝阳区</option>
+                                            <option value=110108 >海淀区</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">医院名称：</label>
+                                    <div class="col-sm-10">
+                                        <input id="hos_name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">医院代码：</label>
+                                    <div class="col-sm-10">
+                                        <input id="hos_code">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                    <div class="col-sm-12">
+                                        <button class="btn_add_hos" onclick="add_hospital()">添加医院</button>
+                                    </div>
+                                </div>
+
+
+
+                                <!--<div class="form-group">-->
+                                    <!--<div class="col-sm-offset-2 col-sm-10">-->
+                                        <!--<button type="submit" class="btn btn-default">提交</button>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">医院删改</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-horizontal">
+
+                                <div class="form-group" style="float: left">
+                                    <label class="col-md-2 control-label">省：</label>
+                                    <div class="col-md-10">
+                                        <select class="form-control" id = "province" >
+                                            <option value="beijing">北京市</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="float: left">
+                                    <label class="col-md-2 control-label">市：</label>
+                                    <div class="col-md-10">
+                                        <select class="form-control" id = "city" >
+                                            <option value="beijing">北京市</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="float: left">
+                                    <label class="col-md-2 control-label">区：</label>
+                                    <div class="col-md-10">
+                                        <select class="form-control" id = "alter_district" onchange="districtSelected2()">
+                                            <option value=110101 >东城区</option>
+                                            <option value=110102 >西城区</option>
+                                            <option value=110105 >朝阳区</option>
+                                            <option value=110108 >海淀区</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" id = "select-hospital-option" style="float: left" >
+                                </div>
+
+                                <div class="form-group" id = "alter_field">
+                                    <label class="col-sm-2 control-label">医院名称：</label>
+                                    <div class="col-sm-10">
+                                        <input id="altered_hos_name">
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">医院代码：</label>
+                                    <div class="col-sm-10">
+                                        <input id="altered_hos_code">
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="float: left">
+
+                                    <div class="col-sm-12">
+                                        <button class="btn_add_hos" onclick="alter_hospital()">修改医院信息</button>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="float: left">
+
+                                    <div class="col-sm-12">
+                                        <button class="btn_add_hos" onclick="del_hospital()">删除此医院</button>
+                                    </div>
+                                </div>
+
+                                <!--<div class="form-group">-->
+                                    <!--<div class="col-sm-offset-2 col-sm-10">-->
+                                        <!--<button type="submit" class="btn btn-default">提交</button>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /. PAGE INNER  -->
+    </div>
+</div>
+</body>
+
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- 可选的Bootstrap主题文件（一般不使用） -->
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap-theme.min.css"></script>
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+    <!--script>
+        console.debug("--test")
+
+        $(document).ready(function () {
+                console.debug("--addheader.js")
+                $('.headerer').load('/OnlineRegister/header.html');
+            });
+        $(document).ready(function () {
+                console.debug("--addadmin_left.js")
+                $('.admin_left').load('/OnlineRegister/admin_left.html');
+            });
+
+</script-->
+
+    <script>
+        $(document).ready(function() {
+
+            var district = $('#search_district').val();
+
+            //ajax 提交表单
+            $.post("/OnlineRegister/hospital_search/",
+                {
+                    district: district
+                },
+        	    function(data) {
+                    $('.list-hospital-item').replaceWith(data);
+                });
+
+            var district2 = $('#alter_district').val();
+
+            //ajax 提交表单
+            $.post("/OnlineRegister/alter_hospital_select1/",
+                {
+                    district: district2
+                },
+        	    function(data) {
+                    $('#select-hospital-option').replaceWith(data);
+
+                });
+
+                return false;       //阻止表单提交
+            });
+        
+         function districtSelected() {
+            var district = $('#search_district').val();
+
+            //ajax 提交表单
+            $.post("/OnlineRegister/hospital_search/",
+                {
+                    district: district
+                },
+        	    function(data) {
+                    $('.list-hospital-item').replaceWith(data);
+                });
+                return false;       //阻止表单提交
+         };
+
+         function districtSelected2() {
+            var district2 = $('#alter_district').val();
+
+            //ajax 提交表单
+            $.post("/OnlineRegister/alter_hospital_select1/",
+                {
+                    district: district2
+                },
+        	    function(data) {
+                    $('#select-hospital-option').replaceWith(data);
+
+                });
+                return false;       //阻止表单提交
+         };
+
+
+         function add_hospital() {
+
+             var district = $('#add_district').val();
+             var hos_name = $('#hos_name').val();
+             var hos_code = $('#hos_code').val();
+
+             $.post("/OnlineRegister/add_hospital/",
+                {
+                    district: district,
+                    name: hos_name,
+                    code: hos_code
+                },
+        	    function(data) {
+                    console.debug("提示");
+                    JAlert("增加成功！","提示");
+                });
+                return false;       //阻止表单提交
+
+         };
+
+         function hospitalSelected() {
+             var hos_id = $('#ho').val();
+
+             $.post("/OnlineRegister/alter_hospital_select2/",
+                {
+                    hos_id: hos_id,
+                },
+        	    function(data) {
+
+                    $('#alter_field').replaceWith(data);
+
+                });
+
+             return false;
+         }
+
+         function alter_hospital() {
+             var hos_name = $('#altered_hos_name').val();
+             var hos_code = $('#altered_hos_code').val();
+             var hos_id = $('#ho').val();
+
+             $.post("/OnlineRegister/alter_hospital/",
+                {
+                    id: hos_id,
+                    name: hos_name,
+                    code: hos_code
+                },
+        	    function(data) {
+                    console.debug("提示");
+                    JAlert("修改成功！","提示");
+                    //$('#alter_field').replaceWith(data);
+
+                });
+
+
+             return false;
+         }
+
+         function del_hospital() {
+
+             var hos_id = $('#ho').val();
+
+             $.post("/OnlineRegister/del_hospital/",
+                {
+                    hos_id: hos_id,
+                },
+        	    function(data) {
+
+                    //$('#alter_field').replaceWith(data);
+
+                });
+
+             return false;
+         }
+
+         /*按select的值更改另一个select的option
+         function dataFieldSelected() {
+                var data_field = $('#vehicle').val();
+                var data_type = document.getElementById('data_type');
+                data_type.options.length=0;
+
+                if(data_field == 'taxi'){
+			        var data_type = document.getElementById('data_type');
+			        data_type.options.add(new Option("GPS","GPS"));
+			        document.getElementById('company_name').disabled = false;
+			        $('#company_name').val("");
+			        $('#year').val("");
+			        $('#month').val("");
+			        $('#day').val("");
+                 }
+
+                if(data_field == 'subway'){
+			        var data_type = document.getElementById('data_type');
+			        data_type.options.add(new Option("GPS","GPS"));
+                    data_type.options.add(new Option("刷卡数据","CARD"));
+			        document.getElementById('company_name').disabled = true;
+			        $('#company_name').val("");
+			        $('#year').val("");
+			        $('#month').val("");
+			        $('#day').val("");
+                 }
+
+                if(data_field == 'bus'){
+			        var data_type = document.getElementById('data_type');
+			        data_type.options.add(new Option("GPS","GPS"));
+			        data_type.options.add(new Option("刷卡数据","CARD"));
+			        document.getElementById('company_name').disabled = true;
+			        $('#company_name').val("");
+			        $('#year').val("");
+			        $('#month').val("");
+			        $('#day').val("");
+                 }
+
+                if(data_field == 'highway'){
+			        var data_type = document.getElementById('data_type');
+			        data_type.options.add(new Option("消费流水","CONSUMEWASTE"));
+			        data_type.options.add(new Option("跨省数据","KUASHENG"));
+			        document.getElementById('company_name').disabled = true;
+			        $('#company_name').val("");
+			        $('#year').val("");
+			        $('#month').val("");
+			        $('#day').val("");
+                 }
+
+            }*/
+
+    </script>
+
+
+</html>

@@ -1,0 +1,47 @@
+﻿<!--navbar 这个是最上边的导航栏，他是根据navbar上下布局的-->
+<nav class="navbar navbar-default top-navbar" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/EducationalSystem/"><strong><i class="icon fa fa-plane"></i> BRILLIANT</strong></a>
+
+        <div id="sideNav" href="">
+
+        </div>
+    </div>
+
+    <div class="profile_details" style="padding-right: 20px;">
+        <ul class="nav navbar-top-links navbar-right">
+            <li class="dropdown profile_details_drop"  style="margin-top:-15px;">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="padding-bottom:5px;">
+                    <div class="profile_img">
+                        <span class="prfil-img"><img src="/static/imgs/user.png" alt="" style="height:50px; width:50px; margin-right:50px;"> </span>
+                        <div class="user-name">
+                            <p style="padding-top:8px; margin:0 0 3px;">{{per.name}}</p>
+                            <span>{{str}}</span>
+                        </div>
+                        <i class="fa fa-angle-down lnr"></i>
+                        <i class="fa fa-angle-up lnr"></i>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+                <!--dropdown-User-Menu-->
+                <ul class="dropdown-menu dropdown-user" style="padding-left: 10px;padding-right: 10px;">
+                    <!--<li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    </li>
+                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                    </li>
+                    <li class="divider"></li>-->
+                    <li><a href="/EducationalSystem/logout/"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    </li>
+                </ul>
+                <!--/. dropdown-User-Menu-->
+            </li>
+        </ul>
+    </div>
+
+</nav>

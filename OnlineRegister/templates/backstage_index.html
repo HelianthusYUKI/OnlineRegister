@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="" name="description" />
+    <meta content="webthemez" name="author" />
+    <title>在线预约挂号系统后台</title>
+    <!-- Bootstrap Styles-->
+    <link href="/static/4assets/css/bootstrap.css" type="text/css" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="/static/4assets/css/font-awesome.css" type="text/css" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link href="/static/css/jiaowu.css" type="text/css" rel="stylesheet" />
+    <!-- Google Fonts-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+
+
+    <link href="/static/css/jiaowu.css" type="text/css" rel="stylesheet" />
+
+</head>
+<body>
+<!--wrapper 是根节点，最外层的div容器-->
+<div id="wrapper">
+
+    <!--最上面的导航栏集成于.headerer-->
+    <div class="headerer">
+
+
+    </div>
+
+
+    <!--这个nav是左边的东西-->
+    <div class="admin_left">
+
+    </div>
+    <div style="display:none;">
+      <input id="cou_id_holder" value="{{cou.id}}" >
+    </div>
+
+    <!--  这个page-wrapper是右边   -->
+    <div id="page-wrapper">
+        <div class="header">
+            <h1 class="page-header">
+                课程信息
+            </h1>
+            <!--可选择返回的不知道叫什么的东西-->
+            <ol class="breadcrumb">
+                <li><a href="../../">{{cou.name}}</a></li>
+                <li class="active">课程信息</li>
+            </ol>
+        </div>
+
+        <!--这是我们操作的主题框-->
+        <div id="page-inner">
+            <!--新增课程表格-->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">基本信息</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">课程ID</label>
+                                    <div class="col-sm-10">
+                                      <label class="control-label" style="font-weight:normal;">{{cou.id}}</label>
+                                    </div>
+                                </div>
+
+
+
+
+                                <!--<div class="form-group">-->
+                                    <!--<div class="col-sm-offset-2 col-sm-10">-->
+                                        <!--<button type="submit" class="btn btn-default">提交</button>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            团队限制
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-horizontal" id="form_limit">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">最大人数</label>
+                                    <div class="col-sm-10">
+                                      <label class="control-label" style="font-weight:normal;">8</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">最少人数</label>
+                                    <div class="col-sm-10">
+                                      <label class="control-label" style="font-weight:normal;">6</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">其他限制</label>
+                                    <div class="col-sm-10">
+                                      <label class="control-label" style="font-weight:normal;">每组至少一位女生</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="panel-heading">
+                            课程描述
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-horizontal" id="form_limit_other">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">描述内容</label>
+                                    <div class="col-sm-10">
+                                        <!--仅可输入数字-->
+                                        <label class="control-label" style="font-weight:normal;">233
+                                        </label>
+                                    </div>
+                                </div>
+                                <!--<div class="form-group">-->
+                                    <!--<div class="col-sm-offset-2 col-sm-10">-->
+                                        <!--<button id="submit_button" type="submit" class="btn btn-default">提交</button>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- /. PAGE INNER  -->
+    </div>
+</div>
+<!-- /. PAGE WRAPPER  -->
+
+<!-- /. WRAPPER  -->
+
+<!-- JS Scripts-->
+<!-- jQuery Js -->
+<script type="text/javascript" src="/static/4assets/js/jquery-1.10.2.js"></script>
+<!-- Bootstrap Js -->
+<script type="text/javascript" src="/static/4assets/js/bootstrap.min.js"></script>
+<!-- Metis Menu Js -->
+<script type="text/javascript" src="/static/4assets/js/jquery.metisMenu.js"></script>
+
+
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- 可选的Bootstrap主题文件（一般不使用） -->
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap-theme.min.css"></script>
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<!-- Custom Js -->
+<!--<script src="assets/js/custom-scripts.js"></script>-->
+<!--添加头部和左部js-->
+<!--script src="/static/js/addheader.js"></script>
+<script src="/static/js/addadmin_left.js"></script-->
+<script>
+    console.debug("--test")
+
+    $(document).ready(function () {
+                console.debug("--addheader.js")
+                $('.headerer').load('/OnlineRegister/header.html');
+            });
+    $(document).ready(function () {
+                console.debug("--addadmin_left.js")
+                $('.admin_left').load('/OnlineRegister/admin_left.html');
+            });
+
+</script>
+<!--添加教师页nav左边js-->
+
+
+
+
+
+
+</body>
+</html>
