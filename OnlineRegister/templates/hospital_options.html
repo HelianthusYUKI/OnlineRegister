@@ -1,11 +1,8 @@
- <div class="form-group" id = "select-hospital-option" style="float: left" >
 
-    <label class="col-md-2 control-label">院：</label>
-    <div class="col-md-10">
-        <select class="form-control" id="ho" onclick="hospitalSelected()">
+<div  id = "select-hospital-option" style="float:left;">
+        <select class="form-control" id="ho" name="hospital" onclick="hospitalSelected()">
         {% for hos in hospitals %}
         <option value={{ hos.id }} >{{ hos.name }}</option>
         {% endfor %}
         </select>
-    </div>
 </div>

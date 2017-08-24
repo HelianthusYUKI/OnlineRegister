@@ -171,6 +171,22 @@ def show_dep2(request):
     else:
         raise Http404
 
+def show_dep2_2(request):
+    print("show dep2 2")
+    if request.method == "POST":
+        dep1_code = request.POST.get('dep1_code')
+        print(dep1_code)
+
+        if dep1_code == "0":
+            return render(request, 'dep2_options.html',{} )
+        else:
+            dep2 = Department.objects.filter(level=dep1_code)
+            print(dep2)
+
+            return render(request, 'dep2_options.html',{'dep2s':dep2} )
+    else:
+        raise Http404
+
 
 def add_dep(request):
     print("add dep")
@@ -241,3 +257,93 @@ def del_dep(request):
     else:
         raise Http404
 
+
+
+def show_doctor(request):
+    print("show doc")
+
+    dep1 = Department.objects.filter(level=0)
+
+    return render(request,'admin_doc_wh.html',{'dep1s':dep1})
+
+def search_doctor(request):
+    print("search doctor")
+    dep1 = Department.objects.filter(level=0)
+
+    if request.method == "POST":
+
+        hos_id = request.POST.get('hospital')
+        dep1_code = request.POST.get('dep1')
+        dep2_code = request.POST.get('dep2')
+
+        if hos_id == "0":
+            return
+        else:
+            doc_hos = Doctor_Hospital.objects.filter(hospital_id_id=hos_id).values("doctor_id_id")
+            docs = Doctor.objects.filter(id__in=doc_hos)
+            if dep1_code == "0":
+                #只选择了医院,传回这个医院所有的医生
+
+                #doc_hos = Doctor_Hospital.objects.filter(hospital_id_id = hos_id).values("doctor_id_id")
+                #docs = Doctor.objects.filter(id__in = doc_hos)
+                return render(request,'admin_doc_wh.html',{'dep1s':dep1, 'docs':docs})
+            else:
+                dep2s = Department.objects.filter(level=dep1_code).values("id")
+                doc_dep = Doctor_Department.objects.filter(department_id_id__in=dep2s).values("id")
+                docs = docs.filter(id__in = doc_dep)
+
+                if dep2_code == "0":
+                    #只选择了医院和科室，传回此科室的所有医生
+                    return render(request,'admin_doc_wh.html',{'dep1s':dep1, 'docs':docs})
+                else:
+
+                    dep2s_2 = Department.objects.filter(code=dep2_code).values("id").values("id")
+                    doc_dep_2 = Doctor_Department.objects.filter(department_id_id__in=dep2s_2).values("id")
+                    docs = docs.filter(id__in=doc_dep_2)
+
+                    return render(request,'admin_doc_wh.html',{'dep1s':dep1, 'docs':docs})
+    else:
+        raise Http404
+
+
+def add_doc(request):
+    print("add doc")
+    if request.method == "POST":
+        doc_name = request.POST.get('name')
+        doc_sex = request.POST.get('sex')
+        doc_position = request.POST.get('position')
+        doc_phone = request.POST.get('phone')
+
+        new_doc = Doctor.objects.create(name = doc_name,sex = doc_sex,position = doc_position,phone_number = doc_phone)
+        doc_id = new_doc.id #数据库建立有误，应为医生设置特有的工号
+        print(doc_id)
+        new_doc.save()
+
+        doc_dep = request.POST.get('dep_code')
+        doc_hos = request.POST.get('hospital')
+
+        doc = Doctor.objects.get(id=doc_id)
+        dep = Department.objects.get(code=doc_dep)###!!!
+        hos = Hospital.objects.get(id=doc_hos)
+
+
+        new_doc_dep = Doctor_Department.objects.create(doctor_id = doc, department_id = dep)
+        new_doc_dep.save()
+
+        new_doc_hos = Doctor_Hospital.objects.create(doctor_id = doc, hospital_id = hos)
+        new_doc_hos.save()
+
+        print("add doc worked!")
+
+        return render_to_response('admin_doc_wh.html')
+    else:
+        raise Http404
+
+
+def alter_doc(request):
+    print("alter doc")
+    return
+
+def del_doc(request):
+    print("del doc")
+    return
