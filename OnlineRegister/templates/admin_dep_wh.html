@@ -5,15 +5,153 @@
     <title>科室信息维护－系统管理员</title>
 </head>
 <body>
-    <div class="dep1">
-    {% for dep1 in departments_1 %}
-        <label onclick="show_dep2({{ dep1.code }})">{{ dep1.code }}:{{ dep1.name }}</label>
-    {% endfor %}
-    </div>
-    <div class="dep2">
-    </div>
 
-    <button>增加科室</button>
+    <!--  这个page-wrapper是右边   -->
+    <div id="page-wrapper">
+        <div class="header">
+            <h1 class="page-header">
+                医院信息维护
+            </h1>
+            <!--可选择返回的不知道叫什么的东西-->
+            <ol class="breadcrumb">
+                <li><a href="../../">{{cou.name}}</a></li>
+                <li class="active">科室信息</li>
+            </ol>
+        </div>
+
+        <!--这是我们操作的主题框-->
+        <div id="page-inner">
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">科室列表</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-horizontal">
+
+                                <div class="form-group">
+                                    <label >一级科室：</label>
+                                </div>
+                                <div class="form-group">
+                                    <!--label class="col-md-2 control-label">一级科室：</label-->
+                                    <div class="col-md-12" id="dep1">
+                                         {% for dep1 in departments_1 %}
+                                            <label onclick="show_dep2({{ dep1.code }})">{{ dep1.code }}:{{ dep1.name }}</label>
+                                         {% endfor %}
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>二级科室：</label>
+                                </div>
+                                <div class="form-group">
+                                    <!--label class="col-md-2 control-label">二级科室：</label-->
+                                    <div class="col-md-10" id="dep2">
+
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-inner">
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">科室信息维护</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+
+                            <form class="form-horizontal" method="post" action="/OnlineRegister/add_department/">
+                                <div class="form-group">
+                                    <label>增加科室：</label>
+                                </div>
+                                <div class="form-group">
+                                    <div>
+                                        <label>科室代码：</label>
+                                        <input type="text" name="code">
+                                    </div>
+                                    <div>
+                                        <label>科室名称：</label>
+                                        <input type="text" name="name">
+                                    </div>
+                                    <div>
+                                        <label>上级科室代码（若为一级则代码为0）：</label>
+                                        <input type="text" name="level">
+                                    </div>
+                                    <div id="dep2">
+                                        <button id="add_dep" type="submit" >确认增加</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <form class="form-horizontal" method="post" action="/OnlineRegister/alter_department/">
+
+                                <div class="form-group">
+                                    <label>修改科室信息：</label>
+                                </div>
+                                <div class="form-group">
+                                    <!--label class="col-md-2 control-label">修改操作：</label-->
+                                    <div>
+                                        <label>原科室代码：</label>
+                                        <input type="text" name="old_code">
+                                    </div>
+                                    <div>
+                                        <label>新科室代码：</label>
+                                        <input type="text" name="code">
+                                    </div>
+                                    <div>
+                                        <label>新科室名称：</label>
+                                        <input type="text" name="name">
+                                    </div>
+                                    <div>
+                                        <label>新上级科室代码（若为一级则代码为0）：</label>
+                                        <input type="text" name="level">
+                                    </div>
+                                    <div  id="dep2">
+                                        <button id="alter_dep" type="submit">确认修改</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                            <form class="form-horizontal" method="post" action="/OnlineRegister/del_department/">
+
+                                <div class="form-group">
+                                    <label>删除科室：</label>
+                                </div>
+                                <div class="form-group">
+                                    <!--label class="col-md-2 control-label">修改操作：</label-->
+                                    <div>
+                                        <label>科室代码：</label>
+                                        <input type="text" name="code">
+                                    </div>
+                                    <div  id="dep2">
+                                        <button id="del_dep" type="submit">确认删除</button>
+                                    </div>
+                                </div>
+
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 
 </body>
 
@@ -38,7 +176,7 @@
                     dep1: p
                 },
         	    function(data) {
-                    $('.dep2').replaceWith(data);
+                    $('#dep2').replaceWith(data);
                 });
 
         }

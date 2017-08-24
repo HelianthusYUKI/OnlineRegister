@@ -170,3 +170,74 @@ def show_dep2(request):
 
     else:
         raise Http404
+
+
+def add_dep(request):
+    print("add dep")
+    if request.method == "POST":
+        dep_name = request.POST.get('name')
+        dep_code = request.POST.get('code')
+        dep_level =request.POST.get('level')
+        print(dep_name)
+        print(dep_code)
+        print(dep_level)
+
+        new_dep = Department.objects.create(name = dep_name, code = dep_code, level = dep_level)
+        new_dep.save()
+        print("add dep worked!")
+
+
+        dep1 = Department.objects.filter(level=0)
+
+        return render(request, 'admin_dep_wh.html', {'departments_1': dep1})
+
+
+    else:
+        raise Http404
+
+
+
+def alter_dep(request):
+    print("alter dep")
+    if request.method == "POST":
+        olddep_code = request.POST.get('old_code')
+        dep_name = request.POST.get('name')
+        dep_code = request.POST.get('code')
+        dep_level = request.POST.get('level')
+        print(dep_name)
+        print(dep_code)
+        print(dep_level)
+
+        dep = Department.objects.get(code=olddep_code)
+        dep.name = dep_name
+        dep.code = dep_code
+        dep.level = dep_level
+        dep.save()
+        print("alter dep worked!")
+
+        dep1 = Department.objects.filter(level=0)
+
+        return render(request, 'admin_dep_wh.html', {'departments_1': dep1})
+
+
+    else:
+        raise Http404
+
+def del_dep(request):
+    print("del dep")
+
+    if request.method == "POST":
+        deldep_code = request.POST.get('code')
+
+        Department.objects.get(code = deldep_code).delete()
+
+        print("del dep worked!")
+
+        dep1 = Department.objects.filter(level=0)
+
+        return render(request, 'admin_dep_wh.html', {'departments_1': dep1})
+
+
+    else:
+        raise Http404
+

@@ -22,5 +22,8 @@ urlpatterns = [
 
     url(r'^show_dep2/$',show_dep2),
     url(r'^show_department/$',show_department),
+    url(r'^add_department/$',add_dep),
+    url(r'^alter_department/$',alter_dep),
+    url(r'^del_department/$',del_dep),
 
 ]
