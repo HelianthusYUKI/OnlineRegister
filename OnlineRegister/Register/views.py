@@ -390,4 +390,3 @@ def del_doc(request):
             raise Http404
     else:
         raise Http404
-    return

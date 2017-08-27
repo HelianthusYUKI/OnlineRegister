@@ -42,12 +42,12 @@
     <div id="page-wrapper">
         <div class="header">
             <h1 class="page-header">
-                课程信息
+                系统后台
             </h1>
             <!--可选择返回的不知道叫什么的东西-->
             <ol class="breadcrumb">
                 <li><a href="../../">{{cou.name}}</a></li>
-                <li class="active">课程信息</li>
+                <li class="active">信息维护</li>
             </ol>
         </div>
 
@@ -59,87 +59,49 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="card-title">
-                                <div class="title">基本信息</div>
+                                <div class="title">系统管理员:</div>
                             </div>
                         </div>
                         <div class="panel-body">
-                            <form class="form-horizontal">
+                            <div class="form-horizontal">
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">课程ID</label>
+                                    <label class="col-sm-2 control-label">医院信息维护</label>
                                     <div class="col-sm-10">
-                                      <label class="control-label" style="font-weight:normal;">{{cou.id}}</label>
+                                        <button onclick="location.href='/OnlineRegister/admin_hos_wh/'">医院</button>
+                                        <button onclick="location.href='/OnlineRegister/show_department/'">科室</button>
+                                        <button onclick="location.href='/OnlineRegister/show_doctor/'">医生</button>
                                     </div>
                                 </div>
-
-
-
 
                                 <!--<div class="form-group">-->
                                     <!--<div class="col-sm-offset-2 col-sm-10">-->
                                         <!--<button type="submit" class="btn btn-default">提交</button>-->
                                     <!--</div>-->
                                 <!--</div>-->
-                            </form>
+                            </div>
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">用户信息维护</label>
+                                    <div class="col-sm-10">
+                                        <button>挂号处</button>
+                                        <button>分诊台</button>
+                                        <button>普通用户</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">预约信息维护</label>
+                                    <div class="col-sm-10">
+                                        <button>预约</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            团队限制
-                        </div>
-                        <div class="panel-body">
-                            <form class="form-horizontal" id="form_limit">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">最大人数</label>
-                                    <div class="col-sm-10">
-                                      <label class="control-label" style="font-weight:normal;">8</label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">最少人数</label>
-                                    <div class="col-sm-10">
-                                      <label class="control-label" style="font-weight:normal;">6</label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">其他限制</label>
-                                    <div class="col-sm-10">
-                                      <label class="control-label" style="font-weight:normal;">每组至少一位女生</label>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="panel-heading">
-                            课程描述
-                        </div>
-                        <div class="panel-body">
-                            <form class="form-horizontal" id="form_limit_other">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">描述内容</label>
-                                    <div class="col-sm-10">
-                                        <!--仅可输入数字-->
-                                        <label class="control-label" style="font-weight:normal;">233
-                                        </label>
-                                    </div>
-                                </div>
-                                <!--<div class="form-group">-->
-                                    <!--<div class="col-sm-offset-2 col-sm-10">-->
-                                        <!--<button id="submit_button" type="submit" class="btn btn-default">提交</button>-->
-                                    <!--</div>-->
-                                <!--</div>-->
 
-                            </form>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
         </div>
         <!-- /. PAGE INNER  -->
     </div>
@@ -177,16 +139,7 @@
 <!--script src="/static/js/addheader.js"></script>
 <script src="/static/js/addadmin_left.js"></script-->
 <script>
-    console.debug("--test")
 
-    $(document).ready(function () {
-                console.debug("--addheader.js")
-                $('.headerer').load('/OnlineRegister/header.html');
-            });
-    $(document).ready(function () {
-                console.debug("--addadmin_left.js")
-                $('.admin_left').load('/OnlineRegister/admin_left.html');
-            });
 
 </script>
 <!--添加教师页nav左边js-->

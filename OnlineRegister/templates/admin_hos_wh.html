@@ -18,6 +18,8 @@
     <div class="admin_left">
 
     </div>
+
+
     <div style="display:none;">
       <input id="cou_id_holder" value="{{cou.id}}" >
     </div>
@@ -47,7 +49,7 @@
                             </div>
                         </div>
                         <div class="panel-body">
-                            <form class="form-horizontal">
+                            <div class="form-horizontal">
 
                                 <div class="form-group" style="float: left">
                                     <label class="col-md-2 control-label">省：</label>
@@ -68,7 +70,8 @@
                                 <div class="form-group" style="float: left">
                                     <label class="col-md-2 control-label">区：</label>
                                     <div class="col-md-10">
-                                        <select class="form-control" id = "search_district" onchange="districtSelected()">
+                                        <select class="form-control" id = "search_district" onclick="districtSelected()">
+
                                             <option value=110101 >东城区</option>
                                             <option value=110102 >西城区</option>
                                             <option value=110105 >朝阳区</option>
@@ -84,7 +87,7 @@
                                         <!--<button type="submit" class="btn btn-default">提交</button>-->
                                     <!--</div>-->
                                 <!--</div>-->
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -99,7 +102,7 @@
                             </div>
                         </div>
                         <div class="panel-body">
-                            <form class="form-horizontal">
+                            <div class="form-horizontal">
 
                                 <div class="form-group" style="float: left">
                                     <label class="col-md-2 control-label">省：</label>
@@ -155,7 +158,7 @@
                                         <!--<button type="submit" class="btn btn-default">提交</button>-->
                                     <!--</div>-->
                                 <!--</div>-->
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -171,7 +174,7 @@
                             </div>
                         </div>
                         <div class="panel-body">
-                            <form class="form-horizontal">
+                            <div class="form-horizontal">
 
                                 <div class="form-group" style="float: left">
                                     <label class="col-md-2 control-label">省：</label>
@@ -192,7 +195,7 @@
                                 <div class="form-group" style="float: left">
                                     <label class="col-md-2 control-label">区：</label>
                                     <div class="col-md-10">
-                                        <select class="form-control" id = "alter_district" onchange="districtSelected2()">
+                                        <select class="form-control" id = "alter_district" onclick="districtSelected2()">
                                             <option value=110101 >东城区</option>
                                             <option value=110102 >西城区</option>
                                             <option value=110105 >朝阳区</option>
@@ -203,7 +206,7 @@
 
                                 <div class="form-group" style="float: left" >
                                     <label class="col-md-2 control-label">院：</label>
-                                    <div class="col-md-10" id = "select-hospital-option">
+                                    <div class="col-md-10" id = "select-hospital-option1">
                                     </div>
                                 </div>
 
@@ -237,7 +240,7 @@
                                         <!--<button type="submit" class="btn btn-default">提交</button>-->
                                     <!--</div>-->
                                 <!--</div>-->
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -277,34 +280,8 @@
 </script-->
 
     <script>
-        $(document).ready(function() {
 
-            var district = $('#search_district').val();
 
-            //ajax 提交表单
-            $.post("/OnlineRegister/hospital_search/",
-                {
-                    district: district
-                },
-        	    function(data) {
-                    $('.list-hospital-item').replaceWith(data);
-                });
-
-            var district2 = $('#alter_district').val();
-
-            //ajax 提交表单
-            $.post("/OnlineRegister/alter_hospital_select1/",
-                {
-                    district: district2
-                },
-        	    function(data) {
-                    $('#select-hospital-option').replaceWith(data);
-
-                });
-
-                return false;       //阻止表单提交
-            });
-        
          function districtSelected() {
             var district = $('#search_district').val();
 
@@ -323,12 +300,12 @@
             var district2 = $('#alter_district').val();
 
             //ajax 提交表单
-            $.post("/OnlineRegister/alter_hospital_select1/",
+            $.post("/OnlineRegister/alter_hospital_select1_1/",
                 {
                     district: district2
                 },
         	    function(data) {
-                    $('#select-hospital-option').replaceWith(data);
+                    $('#select-hospital-option1').replaceWith(data);
 
                 });
                 return false;       //阻止表单提交
@@ -384,7 +361,7 @@
                 },
         	    function(data) {
                     console.debug("提示");
-                    JAlert("修改成功！","提示");
+                    //JAlert("修改成功！","提示");
                     //$('#alter_field').replaceWith(data);
 
                 });

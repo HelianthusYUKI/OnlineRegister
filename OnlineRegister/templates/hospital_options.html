@@ -1,6 +1,5 @@
-
-<div  id = "select-hospital-option1" style="float:left;">
-        <select class="form-control"  id="hospital" >
+<div class="col-md-10" id = "select-hospital-option1" style="float:left;">
+        <select class="form-control"  id="ho" >
         {% for hos in hospitals %}
         <option value={{ hos.id }} >{{ hos.name }}</option>
         {% endfor %}
