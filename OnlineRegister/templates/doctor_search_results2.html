@@ -1,0 +1,15 @@
+
+    <div id="show_doctorsss">
+    {% for doc in docs %}
+        <div>
+        {% if doc.sex == 1 %}
+            <input type="radio" class="check" name="doc" value="{{ doc.id }}" ><label>{{ doc.name }},男,{{ doc.position }},{{ doc.phone_number }}</label>
+        {% endif %}
+        {% if doc.sex == 2 %}
+            <input type="radio" class="check" name="doc" value="{{ doc.id }}" ><label>{{ doc.name }},女,{{ doc.position }},{{ doc.phone_number }}</label>
+        {% endif %}
+        </div>
+        <br>
+    {% endfor %}
+    </div>
+

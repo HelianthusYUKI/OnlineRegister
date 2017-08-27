@@ -4,6 +4,8 @@ from django.contrib import admin
 from Register.views import *
 
 urlpatterns = [
+
+
     url(r'^$',index),
     url(r'^login/$',login),
     url(r'^admin_login/$',adminLogin),
@@ -34,6 +36,11 @@ url(r'^show_dep2_2/$',show_dep2_2),
     url(r'^add_doctor/$',add_doc),
     url(r'^alter_doctor/$',alter_doc),
     url(r'^del_doctor/$',del_doc),
+
+    url(r'^to_be_registered/$',toBeRegistered),
+url(r'^search_doctor2/$', search_doctor2),
+    url('^set_to_be_re/$',setToBeRe),
+    url(r'^reservation/$',reservation),
 
 
 ]

@@ -15,11 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+
+from OnlineRegister import settings
 from Register.views import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^OnlineRegister/', include('Register.urls')),
-
 
 ]

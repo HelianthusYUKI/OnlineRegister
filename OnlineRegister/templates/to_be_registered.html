@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load staticfiles %}
     <meta charset="UTF-8">
-    <title>医生信息维护－系统管理员</title>
+    <title>预约信息维护-可预约</title>
+    <link rel="stylesheet" href="{% static 'build/kalendae.css' %}" type="text/css">
+    <script type='text/javascript' src="{% static 'build/kalendae.standalone.js' %}"></script>
+    <!-- 这里不引入min.js是因为在后面要修改js -->
+
 </head>
 <body>
     <div id="page-wrapper">
@@ -31,6 +36,7 @@
                         <div class="panel-body">
                             <div class="form-horizontal" >
                                 <div class="form-group" >
+
                                     <div style="float:left;">
                                         <select class="form-control" id = "province" >
                                             <option value="beijing">北京市</option>
@@ -81,94 +87,15 @@
                             </div>
 
                             <div class="form-horizontal">
-                                   <form id="show_doctorsss">
-
+                                   <form  action="/OnlineRegister/set_to_be_re/" method="post">
+                                       <div id="show_doctorsss">
+                                       </div>
+                                       <label>容量设置:</label><input type="number" name="capacity">
+                                        <br>
+                                       <label>日期设置:</label><input class="auto-kal" data-kal="mode:'multiple'" name="dateTime">
+                                        <button id="btn_alt_doc" type="submit">修改</button>
                                     </form>
-
                             </div>
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="page-inner">
-
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <div class="card-title">
-                                <div class="title">医生信息维护</div>
-
-                            </div>
-                        </div>
-                        <div class="panel-body">
-
-                            <form class="form-horizontal" method="post" action="/OnlineRegister/add_doctor/">
-                                <div class="form-group">
-                                    <label>增加医生：</label>
-                                </div>
-                                <div class="form-group">
-                                    <div style="float:left;">
-                                        <select class="form-control" id = "province" >
-                                            <option value="beijing">北京市</option>
-                                        </select>
-                                    </div>
-                                    <div style="float:left;">
-                                        <select class="form-control" id = "city" >
-                                            <option value="beijing">北京市</option>
-                                        </select>
-                                    </div>
-                                    <div style="float:left;">
-                                        <select class="form-control" id = "district2"  onclick="districtSelected2()" >
-                                            <option value=0>选择区县</option>
-                                            <option value=110101 >东城区</option>
-                                            <option value=110102 >西城区</option>
-                                            <option value=110105 >朝阳区</option>
-                                            <option value=110108 >海淀区</option>
-                                        </select>
-                                    </div>
-
-                                    <div id = "select-hospital-option2" style="float:left;">
-                                        <select class="form-control" id="hospital" name="hospital">
-                                            <option value=0>选择医院</option>
-                                        </select>
-                                    </div>
-
-                                    <div style="float: none">
-                                        <label>科室代号：</label>
-                                        <input type="text" name="dep_code">
-                                    </div>
-
-                                    <div style="float: none">
-                                        <label>医生姓名：</label>
-                                        <input type="text" name="name">
-                                    </div>
-
-                                    <div style="float: none">
-                                        <label>性别：</label>
-                                        <select name="sex">
-                                            <option value=1>男</option>
-                                            <option value=2>女</option>
-                                        </select>
-                                    </div>
-
-                                    <div>
-                                        <label>职位：</label>
-                                        <input type="text" name="position">
-                                    </div>
-                                    <div>
-                                        <label>电话号码：</label>
-                                        <input type="number" name="phone">
-                                    </div>
-                                    <div id="dep2">
-                                        <button id="add_dep" type="submit" >确认增加</button>
-                                    </div>
-                                </div>
-                            </form>
 
 
                         </div>
@@ -193,6 +120,7 @@
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script>
+
     function districtSelected1() {
             var district = $('#district1').val();
 
@@ -207,27 +135,6 @@
                 });
                 return false;       //阻止表单提交
          };
-    
-    function hospitalSelected() {
-        //return
-    };
-
-    function districtSelected2() {
-            var district = $('#district2').val();
-
-            //ajax 提交表单
-            $.post("/OnlineRegister/alter_hospital_select1_2/",
-                {
-                    district: district
-                },
-        	    function(data) {
-                    $('#select-hospital-option2').replaceWith(data);
-
-                });
-                return false;       //阻止表单提交
-         };
-
-
 
     function dep1Selected() {
         var dep1_code = $('#dep1').val();
@@ -250,50 +157,18 @@
         var dep2 = $('#dep2').val();
 
         //ajax 提交表单
-        $.post("/OnlineRegister/search_doctor/",
-              {
-                    hospital: hos,
-                    dep1: dep1,
-                    dep2: dep2
-                },
-               function (data) {
-                    $('#show_doctorsss').replaceWith(data);
-               }
-        );
-
-
-        /*
-
-        var length = 3;
-
-        $(function(){
-    var sleep = function (length){
-       var index = 0;
-       var begin= setInterval(function(){
-	   index ++;
-	   if(length<index){
-		clearInterval(begin);
-	   }
-       },1000);
-    }
-})
-
-        $.post(
-            "/OnlineRegister/search_doctor_2/",
+        $.post("/OnlineRegister/search_doctor2/",
             {
-
+                hospital: hos,
+                dep1: dep1,
+                dep2: dep2
             },
             function (data) {
                 $('#show_doctorsss').replaceWith(data);
             }
-        )
-
-        */
-
-        return false;
+        );
     };
 
-
-
 </script>
+
 </html>
