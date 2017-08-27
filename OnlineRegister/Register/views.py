@@ -5,7 +5,9 @@ from django.shortcuts import render, render_to_response
 
 # Create your views here.
 from Register.models import *
+# import time
 
+# DOCS = 0
 
 def index(request):
     return render_to_response("index.html")
@@ -91,14 +93,25 @@ def add_hospital(request):
     else:
         raise Http404
 
-def alter_hospital_select1(request):
-    print("alter hospital 1")
+def alter_hospital_select1_1(request):
+    print("alter hospital 1..1")
     if request.method == "POST":
         district_code = request.POST.get('district')
         print(district_code)
         hospitals = Hospital.objects.filter(district=district_code)
 
         return render(request, 'hospital_options.html', {'hospitals': hospitals})
+    else:
+        raise Http404
+
+def alter_hospital_select1_2(request):
+    print("alter hospital 1..2")
+    if request.method == "POST":
+        district_code = request.POST.get('district')
+        print(district_code)
+        hospitals = Hospital.objects.filter(district=district_code)
+
+        return render(request, 'hospital_options2.html', {'hospitals': hospitals})
     else:
         raise Http404
 
@@ -268,40 +281,55 @@ def show_doctor(request):
 
 def search_doctor(request):
     print("search doctor")
-    dep1 = Department.objects.filter(level=0)
-
+    #dep1 = Department.objects.filter(level=0)
     if request.method == "POST":
 
         hos_id = request.POST.get('hospital')
         dep1_code = request.POST.get('dep1')
         dep2_code = request.POST.get('dep2')
+        print(hos_id)
+        print(dep1_code)
+        print(dep2_code)
 
         if hos_id == "0":
-            return
+            print("1")
+            docs = Doctor.objects.filter(id=0)
+            return render(request, 'doctor_search_results.html', {'docs': docs})
         else:
+            print("2")
             doc_hos = Doctor_Hospital.objects.filter(hospital_id_id=hos_id).values("doctor_id_id")
+            print(doc_hos)
             docs = Doctor.objects.filter(id__in=doc_hos)
+            print(docs)
             if dep1_code == "0":
                 #只选择了医院,传回这个医院所有的医生
-
-                #doc_hos = Doctor_Hospital.objects.filter(hospital_id_id = hos_id).values("doctor_id_id")
-                #docs = Doctor.objects.filter(id__in = doc_hos)
-                return render(request,'admin_doc_wh.html',{'dep1s':dep1, 'docs':docs})
+                print("3")
+                return render(request, 'doctor_search_results.html', {'docs': docs})
             else:
-                dep2s = Department.objects.filter(level=dep1_code).values("id")
-                doc_dep = Doctor_Department.objects.filter(department_id_id__in=dep2s).values("id")
-                docs = docs.filter(id__in = doc_dep)
+                print("4")
 
                 if dep2_code == "0":
+                    print("5")
                     #只选择了医院和科室，传回此科室的所有医生
-                    return render(request,'admin_doc_wh.html',{'dep1s':dep1, 'docs':docs})
+                    dep2s = Department.objects.filter(level=dep1_code).values("id")
+                    print(dep2s)
+                    doc_dep = Doctor_Department.objects.filter(department_id_id__in=dep2s).values("doctor_id_id")
+                    print(doc_dep)
+                    docs = docs.filter(id__in=doc_dep)
+                    print(docs)
+                    return render(request, 'doctor_search_results.html', {'docs': docs})
                 else:
-
-                    dep2s_2 = Department.objects.filter(code=dep2_code).values("id").values("id")
-                    doc_dep_2 = Doctor_Department.objects.filter(department_id_id__in=dep2s_2).values("id")
+                    print("6")
+                    dep2s_2 = Department.objects.filter(code=dep2_code).values("id")
+                    print(dep2s_2)
+                    doc_dep_2 = Doctor_Department.objects.filter(department_id_id__in=dep2s_2).values("doctor_id_id")
+                    print(doc_dep_2)
                     docs = docs.filter(id__in=doc_dep_2)
+                    print(docs)
+                    # global DOCS
+                    # DOCS = docs
 
-                    return render(request,'admin_doc_wh.html',{'dep1s':dep1, 'docs':docs})
+                    return render(request, 'doctor_search_results.html', {'docs': docs})
     else:
         raise Http404
 
@@ -346,4 +374,20 @@ def alter_doc(request):
 
 def del_doc(request):
     print("del doc")
+    if request.method == "POST":
+
+        doc = request.POST.getlist("doc")
+        if doc:
+            print(doc)
+
+            for i in doc:
+                print(i)
+                Doctor.objects.get(id=i).delete() #用外键会连同doctor_dep和doc_hos一起删除
+
+            return render_to_response('admin_doc_wh.html')
+        else:
+            print("fail")
+            raise Http404
+    else:
+        raise Http404
     return

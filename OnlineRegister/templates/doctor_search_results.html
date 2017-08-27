@@ -1,0 +1,16 @@
+<form id="show_doctorsss" action="/OnlineRegister/del_doctor/" method="post">
+    {% for doc in docs %}
+        <div>
+        {% if doc.sex == 1 %}
+            <input type="checkbox" class="check" name="doc" value="{{ doc.id }}" ><label>{{ doc.name }},男,{{ doc.position }},{{ doc.phone_number }}</label>
+        {% endif %}
+        {% if doc.sex == 2 %}
+            <input type="checkbox" class="check" name="doc" value="{{ doc.id }}" ><label>{{ doc.name }},女,{{ doc.position }},{{ doc.phone_number }}</label>
+        {% endif %}
+        </div>
+        <br>
+    {% endfor %}
+    <button id="btn_del_doc" type="submit">删除医生</button>
+</form>
+
+
