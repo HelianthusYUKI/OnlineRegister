@@ -1,0 +1,7 @@
+<div class="show_toberegis">
+    {% for item in toBeRs %}
+        <div>
+        <input type="radio" class="check2"  name="toBeR" value="{{ item.id }}" ><label>{{ item.id }}-时间:{{ item.date }},容量:{{item.capacity }}</label>
+        </div>
+    {% endfor %}
+</div>

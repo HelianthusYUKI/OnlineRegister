@@ -40,6 +40,10 @@ url(r'^show_dep2_2/$',show_dep2_2),
     url(r'^to_be_registered/$',toBeRegistered),
 url(r'^search_doctor2/$', search_doctor2),
     url('^set_to_be_re/$',setToBeRe),
+    url('^show_to_be_registered_for_doc/$',show_to_be_registered_for_doc),
+    url('^alter_to_be_registered/$',alter_to_be_registered),
+
+
     url(r'^reservation/$',reservation),
 
 

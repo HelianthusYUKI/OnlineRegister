@@ -472,6 +472,44 @@ def setToBeRe(request):
     else:
         raise Http404
 
+
+def show_to_be_registered_for_doc(request):
+    print("show to be regis")
+
+    if request.method == "POST":
+        doc_id = request.POST.get('doc_id')
+        print(doc_id)
+        toBeRs = ToBeRegistered.objects.filter(doctor_id_id = doc_id)
+
+        return render(request, 'to_be_regis_for_doc.html', {'toBeRs': toBeRs})
+    else:
+        raise  Http404
+
+
+def alter_to_be_registered(request):
+    print("alter to be regis")
+
+    if request.method == "POST":
+        toBeR = request.POST.get('toBeR')
+        capacity = request.POST.get('capacity')
+        dateTime = request.POST.get('dateTime')
+        t = dateTime.split("/")
+        date = t[2]+"-"+t[0]+"-"+t[1]+" 23:59:59"
+        print(toBeR)
+
+        if capacity == '0':
+            ToBeRegistered.objects.get(id = toBeR).delete()
+        else:
+            tmp = ToBeRegistered.objects.get(id=toBeR)
+            tmp.capacity = capacity
+            tmp.date = date
+            tmp.save()
+
+        return HttpResponse("ok~")
+    else:
+        raise  Http404
+
+
 def reservation(request):
     print("reservation")
     return render_to_response('reservation.html')
