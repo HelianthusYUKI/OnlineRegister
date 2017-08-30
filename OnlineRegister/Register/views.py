@@ -1,5 +1,6 @@
 from django.http import Http404
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 
 
@@ -73,8 +74,8 @@ def login(request):
                 print("successUser")
                 request.session['id'] = user.id
                 request.session['type'] = "user"
-                #return render_to_response("")
-                return HttpResponse("登录成功！")
+
+                return HttpResponseRedirect("/OnlineRegister/show_user_info/")
             else:
                 return HttpResponse("密码错误！")
 
@@ -576,3 +577,143 @@ def alter_to_be_registered(request):
 def reservation(request):
     print("reservation")
     return render_to_response('reservation.html')
+
+
+
+########################################################
+##这是后台和前台的分割线,以下是User部分
+
+
+#用户挂号功能，点击某天的某个医生（传入toBeRegistered_id），进行挂号操作（生成挂号订单，跳转支付页面，支付成功后生成挂号单）
+def show_reservation_order(request):
+    print("show reservation order")
+
+    if request.method == "GET":
+        #toBeRegistered_id = request.POST.get('toBeRegistered_id')
+        #user_id = request.session['id']
+        user_id = 5
+        toBeRegistered_id = 5
+
+        user = User.objects.get(id=user_id)
+        toBeRegistered = ToBeRegistered.objects.get(id=toBeRegistered_id)
+
+        if toBeRegistered.capacity == 0:
+            return HttpResponse("此医生已约满！")
+
+        else:
+
+            #reservation_order = ReservationOrder.objects.create(toBeRegistered_id_id=toBeRegistered_id,user_id_id=user_id)
+            #reservation_order.save()
+
+            #cap = toBeRegistered.capacity
+            #toBeRegistered.capacity = cap - 1
+
+            #toBeRegistered.save()
+
+            doc = toBeRegistered.doctor_id
+            dep2 = Doctor_Department.objects.get(doctor_id=doc).department_id
+            dep1 = Department.objects.get(id=dep2.level)
+            hos = Doctor_Hospital.objects.get(doctor_id=doc).hospital_id
+
+
+
+
+            #挂号订单显示：User（用户姓名，身份证，手机号），（医院名字，科室，医生信息），（应就诊时间，订单生成时间）
+            return render_to_response('reservation_order.html',{'user': user,
+                                                            'doc': doc, 'dep1':dep1, 'dep2':dep2, 'hos':hos,
+                                                            'toBeRegistered': toBeRegistered,
+                                                            })
+    else:
+        raise Http404
+
+
+def creat_reservation_order(request):
+    print("creat reservation order")
+
+    if request.method == "POST":
+
+        doc_id = request.POST.get('doc_id')
+        date = request.POST.get('date')
+        user_id = request.POST.get('user_id')
+        toBeRegistered_id = request.POST.get('toBeRegistered_id')
+
+        reservation_order = ReservationOrder.objects.create(toBeRegistered_id_id=toBeRegistered_id,user_id_id=user_id)
+        reservation_order.save()
+
+        toBeRegistered = ToBeRegistered.objects.get(id=toBeRegistered_id)
+        cap = toBeRegistered.capacity
+        toBeRegistered.capacity = cap - 1
+        toBeRegistered.save()
+
+
+        return render_to_response('pay.html',{
+                                              'doc_id': doc_id,
+                                              'user_id': user_id,
+                                              'date': date,
+                                              'reservation_order': reservation_order})
+
+    else:
+        raise Http404
+
+
+def creat_reservation(request):
+    print("creat reservation")
+
+    if request.method == "POST":
+        doc_id = request.POST.get('doc_id')
+        date = request.POST.get('date')
+        user_id = request.POST.get('user_id')
+
+        print(doc_id)
+        print(user_id)
+
+        Reservation.objects.create(doctor_id_id=doc_id,
+                                   user_id_id=user_id,
+                                   ifValid=True
+                                   ).save()
+
+        #挂号单生成成功以后删除临时订单
+        ReservationOrder.objects.get(id=request.POST['reservation_order_id']).delete()
+
+        return HttpResponse("挂号成功！")
+    else:
+        raise Http404
+
+
+#用户个人信息查看页面：个人信息、预约订单查看、挂号单查看和操作
+def show_user_info(request):
+    print("show user info")
+    if request.session['type'] == "user":
+        user_id = request.session['id']
+        user = User.objects.get(id=user_id)
+        reservation_orders = user.reservationorder_set.all()
+        reservations = user.reservation_set.all()
+
+        print(reservation_orders)
+        print(reservations)
+
+
+
+        return render_to_response('user_info.html',{'user': user,
+                                                    'reservation_orders': reservation_orders,
+                                                    'reservations': reservations
+                                                    })
+    else:
+        raise Http404
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

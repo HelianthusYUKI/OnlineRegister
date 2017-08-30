@@ -46,5 +46,11 @@ url(r'^search_doctor2/$', search_doctor2),
 
     url(r'^reservation/$',reservation),
 
+    url(r'^show_reservation_order/$',show_reservation_order),
+    url(r'^creat_reservation_order/$',creat_reservation_order),
+    url(r'^creat_reservation/$',creat_reservation),
+
+    url(r'^show_user_info/$',show_user_info),
+
 
 ]
