@@ -8,8 +8,8 @@ class User(models.Model):
     name = models.CharField(max_length=50, null=False)
     password = models.CharField(max_length=50, null=False)
     sex = models.IntegerField()
-    phone_number = models.IntegerField()
-    id_number = models.IntegerField(null=False)
+    phone_number = models.CharField(max_length=50, null=False)
+    id_number = models.CharField(max_length=50, null=False)
     creditMark = models.IntegerField()
 
 ##医院挂号处,理论上每个医院一个

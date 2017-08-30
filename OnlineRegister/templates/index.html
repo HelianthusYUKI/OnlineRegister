@@ -97,7 +97,7 @@
 				</footer>
 
         <!--Login-->
-        <form method="post" action="OnlineRegister/login/">
+        <form method="post" action="/OnlineRegister/login/">
             <div class="modal fade" id="loginTable" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
              <div class="modal-dialog">
                 <div class="modal-content">
@@ -118,8 +118,8 @@
                         <div class="row">
 
                           <div class="form-group has-feedback form-time col-md-12">
-                            <label class="control-label">用户名</label>
-                            <input type="text" class="form-control" id="name" name="name">
+                            <label class="control-label">身份证号</label>
+                            <input type="text" class="form-control" id="id" name="id">
                           </div>
 
                           <div class="form-group has-feedback form-time col-md-12">
@@ -180,7 +180,7 @@
         </form>
         <!--/. LOGIN -->
 
-        <form method="post" action="OnlineRegister/register/">
+        <form method="post" action="/OnlineRegister/register/">
             <div class="modal fade" id="registerTable" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
              <div class="modal-dialog">
                 <div class="modal-content">
@@ -201,7 +201,7 @@
                         <div class="row">
 
                           <div class="form-group has-feedback form-time col-md-12">
-                            <label class="control-label">用户名</label>
+                            <label class="control-label">姓名</label>
                             <input type="text" class="form-control" id="name" name="name">
                           </div>
 
@@ -217,17 +217,21 @@
 
                             <div class="form-group has-feedback form-time col-md-12">
                             <label class="control-label">性别</label>
-                            <input type="text" class="form-control" id="name" name="name">
+
+                                <select id="sex" name="sex">
+                                            <option value=1>男</option>
+                                            <option value=2>女</option>
+                                        </select>
                           </div>
 
                             <div class="form-group has-feedback form-time col-md-12">
                             <label class="control-label">身份证号</label>
-                            <input type="text" class="form-control" id="name" name="name">
+                            <input type="text" class="form-control" id="id_number" name="id_number">
                           </div>
 
                             <div class="form-group has-feedback form-time col-md-12">
                             <label class="control-label">手机号</label>
-                            <input type="text" class="form-control" id="name" name="name">
+                            <input type="text" class="form-control" id="phone" name="phone">
                           </div>
 
 

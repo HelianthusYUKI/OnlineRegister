@@ -13,14 +13,77 @@ def index(request):
     return render_to_response("index.html")
 
 def register(request):
-    return
+    print("regis")
+    if 'name' in request.POST and request.POST['name'] \
+        and 'password' in request.POST and request.POST['password'] \
+        and 'cfm_password' in request.POST and request.POST['cfm_password'] \
+        and 'sex' in request.POST and request.POST['sex'] \
+        and 'id_number' in request.POST and request.POST['id_number'] \
+        and 'phone' in request.POST and request.POST['phone']:
+
+        name = request.POST['name']
+        psw = request.POST['password']
+        cfm_psw = request.POST['cfm_password']
+        sex = request.POST['sex']
+        id = request.POST['id_number']
+        phone = request.POST['phone']
+
+        print(id)
+        print(phone)
+
+        errors = []
+
+        try:
+            User.objects.get(id_number=id)
+        except:
+            if not psw == cfm_psw:
+                errors.append("两次密码输入不一致！")
+                return HttpResponse(errors[0])
+            else:
+                User.objects.create(name=name,
+                                    password=psw,
+                                    sex=sex,
+                                    id_number=id,
+                                    phone_number=phone,
+                                    creditMark=3).save()
+            return render_to_response("index.html")
+
+        else:
+            errors.append("身份证号已注册！")
+            return HttpResponse(errors[0])
+
+    else:
+        raise HttpResponse("ooops!")
 
 def login(request):
+    print("user login")
+    if 'id' in request.POST and request.POST['id'] \
+        and 'password' in request.POST and request.POST['password']:
+
+        id = request.POST['id']
+        psw = request.POST['password']
+
+        try:
+            user = User.objects.get(id_number=id)
+            user_psw = user.password
+        except:
+            return HttpResponse("没有此用户！请先注册！")
+        else:
+            if psw == user_psw:
+                print("successUser")
+                request.session['id'] = user.id
+                request.session['type'] = "user"
+                #return render_to_response("")
+                return HttpResponse("登录成功！")
+            else:
+                return HttpResponse("密码错误！")
+
+
     return
 
 def adminLogin(request):
-    if 'name' in request.POST and request.POST['name']\
-        and 'password' in request.POST and request.POST['password']\
+    if 'name' in request.POST and request.POST['name'] \
+        and 'password' in request.POST and request.POST['password'] \
         and 'type' in request.POST and request.POST['type']:
         userName = request.POST['name']
         userPsw = request.POST['password']
