@@ -54,6 +54,9 @@ def crontab_task2():
         if cha2 < 1 | cha2 == 1 :
             print("cha2<1")
             re.ifValid=False
+            if re.user_id.creditMark > 0:
+                re.user_id.creditMark = re.user_id.creditMark - 1
+                re.user_id.save()
             re.save()
 
 
