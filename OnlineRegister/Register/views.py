@@ -595,7 +595,7 @@ def show_reservation_order(request):
         #toBeRegistered_id = request.POST.get('toBeRegistered_id')
         #user_id = request.session['id']
         user_id = 1
-        toBeRegistered_id = 2
+        toBeRegistered_id = 1
 
         user = User.objects.get(id=user_id)
         toBeRegistered = ToBeRegistered.objects.get(id=toBeRegistered_id)
@@ -712,6 +712,9 @@ def del_reservation(request):
 
     else:
         raise Http404
+
+
+
 
 
 #用户个人信息查看页面：个人信息、预约订单查看、挂号单查看和操作

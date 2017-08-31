@@ -85,4 +85,4 @@ class Reservation(models.Model):
     user_id = models.ForeignKey(User)
     createdTime = models.DateTimeField(auto_now_add=True, null=False)
     ifValid = models.BooleanField()
-    #ifJiuZhen = models.BooleanField()
+    ifJiuZhen = models.BooleanField(default=False)
