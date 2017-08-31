@@ -153,7 +153,16 @@
                                     <input name="reservation_id" value="{{reservation.id}}" style="display: none">
 
                                     <br>
-                                    <button type="submit" >取消预约</button>
+                                    {% if reservation.ifJiuZhen == False %}
+                                        {% if reservation.ifValid == True %}
+                                            <button type="submit" >取消预约</button>
+                                        {% elif reservation.ifValid == False %}
+                                            <input disabled="disabled" value="未就诊，已逾期"></input>
+                                        {% endif %}
+
+                                    {% else %}
+                                        <input disabled="disabled" value="已就诊"></input>
+                                    {% endif %}
                                     <br>
                                 {% endfor %}
                             </form>
