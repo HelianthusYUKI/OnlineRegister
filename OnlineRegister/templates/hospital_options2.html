@@ -1,6 +1,6 @@
 
 <div  id = "select-hospital-option2" style="float:left;">
-        <select class="hos" id="hospital">
+        <select class="hos" id="hospital" name="hospital">
         {% for hos in hospitals %}
         <option value={{ hos.id }} >{{ hos.name }}</option>
         {% endfor %}

@@ -49,8 +49,9 @@ url(r'^search_doctor2/$', search_doctor2),
     url(r'^show_reservation_order/$',show_reservation_order),
     url(r'^creat_reservation_order/$',creat_reservation_order),
     url(r'^creat_reservation/$',creat_reservation),
-
+    url(r'^del_reservation/$',del_reservation),
     url(r'^show_user_info/$',show_user_info),
+    url(r'^alter_user_info/$',alter_user_info),
 
 
 ]

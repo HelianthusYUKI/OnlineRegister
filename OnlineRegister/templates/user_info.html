@@ -43,10 +43,26 @@
                                 <label>性别：女</label>
                                 {% endif %}
                                 <br>
-                                <label>信用等级计分：{{ user.creditMark }}分</label>
+                                <label>信用等级计分：{{ user.creditMark }}分（信用等级为0后将禁止网上预约挂号，六个月恢复一个计分）</label>
                                 <br>
-                                <button>修改</button>
+                                <button onclick="show_alter()">修改</button>
+                                <br>
                             </div>
+                            <form class="user_info" style="display: none" method="post" action="/OnlineRegister/alter_user_info/">
+                                <br>
+                                <label>姓名：</label><input name="name">
+                                <br>
+                                <label>联系电话：</label><input name="phone">
+                                <br>
+                                <label>性别：</label>
+                                <select name="sex">
+                                    <option value="1">男</option>
+                                    <option value="2">女</option>
+                                </select>
+                                <br>
+                                <button>确认修改</button>
+                                <br>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -65,10 +81,10 @@
                         </div>
                         <div class="panel-body">
 
-                            <form class="form-horizontal" method="post" action="/OnlineRegister/add_department/">
+                            <form class="form-horizontal" method="post" action="/OnlineRegister/creat_reservation/">
                                 {% for reservation_order in reservation_orders %}
                                     <div>
-                                        <label>订单生成时间：{{ reservation_order.createdTime }}</label>
+                                        <label>订单生成时间：<td>{{ reservation_order.createdTime|date:"Y-m-d H:i:s" }}</td></label>
                                         <br>
                                         {% for doc_hos in reservation_order.toBeRegistered_id.doctor_id.doctor_hospital_set.all %}
                                             <label>医院：{{ doc_hos.hospital_id.name }}</label>
@@ -81,15 +97,17 @@
                                         <label>医生：{{ reservation_order.toBeRegistered_id.doctor_id.name  }}({{ reservation_order.toBeRegistered_id.doctor_id.position }})</label>
                                         <input name="doc_id" value="{{reservation_order.toBeRegistered_id.doctor_id_id}}" style="display: none">
                                         <br>
-                                        <label>应就诊日期：{{ reservation_order.toBeRegistered_id.date }}</label>
-                                        <input name="date" value="{{reservation_order.toBeRegistered_id.date}}" style="display: none">
+                                        <label>应就诊日期：<td>{{ reservation_order.toBeRegistered_id.date|date:"Y-m-d" }}</td></label>
+                                        <input name="date" value="{{reservation_order.toBeRegistered_id.date|date:"Y-m-d H:i:s"}}" style="display: none">
                                         <br>
 
                                         <input name="reservation_order_id" value="{{reservation_order.id}}" style="display: none">
 
                                         <input name="user_id" value="{{user.id}}" style="display: none">
+                                        <input name="toBeR_id" value="{{reservation_order.toBeRegistered_id_id}}" style="display: none">
 
-                                        <button id="add_dep" type="submit" >付款</button>
+                                        <button  type="submit" >付款</button>
+                                        <br>
                                     </div>
                                 {% endfor %}
 
@@ -114,9 +132,9 @@
                             </div>
                         </div>
                         <div class="panel-body">
-                            <form class="form-horizontal" method="post" action="/OnlineRegister/add_department/">
+                            <form class="form-horizontal" method="post" action="/OnlineRegister/del_reservation/">
                                 {% for reservation in reservations %}
-                                    <label>预约单生成时间：{{ reservation.createdTime }}</label>
+                                    <label>预约单生成时间：<td>{{ reservation.createdTime|date:"Y-m-d H:i:s" }}</td></label>
                                     <br>
                                     {% for doc_hos in reservation.doctor_id.doctor_hospital_set.all %}
                                         <label>医院：{{ doc_hos.hospital_id.name }}</label>
@@ -129,10 +147,14 @@
                                     <label>医生：{{ reservation.doctor_id.name  }}({{ reservation.doctor_id.position }})</label>
                                     <input name="doc_id" value="{{reservation.doctor_id_id}}" style="display: none">
                                     <br>
-                                    <label>应就诊日期：{{ reservation.date }}</label>
+                                    <label>应就诊日期：<td>{{ reservation.date|date:"Y-m-d" }}</td></label>
                                     <input name="date" value="{{reservation.date}}" style="display: none">
+
+                                    <input name="reservation_id" value="{{reservation.id}}" style="display: none">
+
                                     <br>
-                                    <button id="add_dep" type="submit" >取消预约</button>
+                                    <button type="submit" >取消预约</button>
+                                    <br>
                                 {% endfor %}
                             </form>
                         </div>
@@ -155,5 +177,10 @@
 
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        function show_alter() {
+            $('.user_info').show();
+        }
+    </script>
 
 </html>

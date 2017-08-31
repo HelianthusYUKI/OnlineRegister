@@ -79,6 +79,7 @@ class ReservationOrder(models.Model):
     createdTime = models.DateTimeField(auto_now_add=True, null=False)
 
 class Reservation(models.Model):
+    toBeR_id = models.IntegerField(null=True)
     doctor_id = models.ForeignKey(Doctor)
     date = models.DateTimeField(auto_now_add=False, null=True)
     user_id = models.ForeignKey(User)

@@ -414,9 +414,12 @@ def add_doc(request):
         doc_dep = request.POST.get('dep_code')
         doc_hos = request.POST.get('hospital')
 
+        print(doc_hos)
+
         doc = Doctor.objects.get(id=doc_id)
         dep = Department.objects.get(code=doc_dep)###!!!
         hos = Hospital.objects.get(id=doc_hos)
+
 
 
         new_doc_dep = Doctor_Department.objects.create(doctor_id = doc, department_id = dep)
@@ -591,8 +594,8 @@ def show_reservation_order(request):
     if request.method == "GET":
         #toBeRegistered_id = request.POST.get('toBeRegistered_id')
         #user_id = request.session['id']
-        user_id = 5
-        toBeRegistered_id = 5
+        user_id = 1
+        toBeRegistered_id = 2
 
         user = User.objects.get(id=user_id)
         toBeRegistered = ToBeRegistered.objects.get(id=toBeRegistered_id)
@@ -634,6 +637,7 @@ def creat_reservation_order(request):
 
         doc_id = request.POST.get('doc_id')
         date = request.POST.get('date')
+        print(date)
         user_id = request.POST.get('user_id')
         toBeRegistered_id = request.POST.get('toBeRegistered_id')
 
@@ -660,8 +664,11 @@ def creat_reservation(request):
     print("creat reservation")
 
     if request.method == "POST":
+        toBeR_id = request.POST.get('toBeR_id')
+        print(toBeR_id)
         doc_id = request.POST.get('doc_id')
         date = request.POST.get('date')
+        print(date)
         user_id = request.POST.get('user_id')
 
         print(doc_id)
@@ -669,13 +676,40 @@ def creat_reservation(request):
 
         Reservation.objects.create(doctor_id_id=doc_id,
                                    user_id_id=user_id,
-                                   ifValid=True
+                                   ifValid=True,
+                                   date=date,
+                                   toBeR_id=toBeR_id
                                    ).save()
 
         #挂号单生成成功以后删除临时订单
         ReservationOrder.objects.get(id=request.POST['reservation_order_id']).delete()
 
         return HttpResponse("挂号成功！")
+    else:
+        raise Http404
+
+
+def del_reservation(request):
+    print("del reservation")
+    if request.method == "POST":
+
+        reservation_id = request.POST.get('reservation_id')
+
+        re = Reservation.objects.get(id=reservation_id)
+
+        try:
+            to = ToBeRegistered.objects.get(id=re.toBeR_id)
+        except:
+            re.delete()
+        else:
+            to.capacity = to.capacity + 1
+            to.save()
+            re.delete()
+
+        print("del reservation successfully!")
+
+        return HttpResponseRedirect("/OnlineRegister/show_user_info/")
+
     else:
         raise Http404
 
@@ -698,6 +732,24 @@ def show_user_info(request):
                                                     'reservation_orders': reservation_orders,
                                                     'reservations': reservations
                                                     })
+    else:
+        raise Http404
+
+def alter_user_info(request):
+    print("alter user info")
+
+    if request.method == "POST":
+
+
+        if request.session['type'] == "user":
+            user = User.objects.get(id=request.session['id'])
+            user.name = request.POST.get('name')
+            user.sex = request.POST.get('sex')
+            user.phone_number = request.POST.get('phone')
+            user.save()
+            return HttpResponseRedirect("/OnlineRegister/show_user_info/")
+        else:
+            return Http404
     else:
         raise Http404
 

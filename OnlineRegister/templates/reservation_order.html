@@ -21,7 +21,7 @@
     <br>
     <label>医生：{{ doc.name }}({{ doc.position }})</label><input name="doc_id" value="{{doc.id}}" style="display: none">
     <br>
-    <label>应就诊日期：{{ toBeRegistered.date }}</label><input name="date" value="{{toBeRegistered.date}}" style="display: none">
+        <label>应就诊日期：<td>{{ toBeRegistered.date|date:"Y-m-d" }}</td></label><input name="date" value="{{ toBeRegistered.date|date:"Y-m-d H:i:s" }}" style="display: none">
         <input name="toBeRegistered_id" value="{{toBeRegistered.id}}" style="display: none">
     <br>
 
