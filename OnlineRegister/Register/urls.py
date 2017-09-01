@@ -53,5 +53,10 @@ url(r'^search_doctor2/$', search_doctor2),
     url(r'^show_user_info/$',show_user_info),
     url(r'^alter_user_info/$',alter_user_info),
 
+    url(r'^show_hos_list/$',show_hos_list),
+    url(r'^show_dep_list/(\d+)/$',show_dep_list),
+    url(r'^show_capacity_for_dep/$',show_capacity_for_dep),
+    url(r'^show_doc_list/$',show_doc_list),
+
 
 ]

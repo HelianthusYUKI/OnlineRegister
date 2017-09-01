@@ -1,0 +1,16 @@
+<div id="capacity_for_dep">
+    <table border="2">
+        <tr>
+            <td>日期</td>
+            {% for d in dates %}
+                <td>{{ d|date:"Y-m-d"}}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>容量</td>
+            {% for c in caps %}
+            <td>{{ c }}</td>
+            {% endfor %}
+        </tr>
+    </table>
+</div>

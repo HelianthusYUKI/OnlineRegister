@@ -1,5 +1,5 @@
 <div class="col-md-10" id="dep2">
     {% for dep2 in departments_2 %}
-        <label >{{ dep2.code }}:{{ dep2.name }}</label>
+        <label onclick="show_capacity_for_dep({{ dep2.id }})">{{ dep2.code }}:{{ dep2.name }}</label>
     {% endfor %}
 </div>

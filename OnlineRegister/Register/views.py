@@ -11,6 +11,7 @@ from Register.models import *
 # DOCS = 0
 
 def index(request):
+    request.session['type'] = 'un_user'
     return render_to_response("index.html")
 
 def register(request):
@@ -758,7 +759,62 @@ def alter_user_info(request):
 
 
 
+#非注册用户和注册用户都能浏览的页面，主要是医院、科室、医生和可预约容量查询
+def show_hos_list(requset):
+    return render_to_response('hos_list.html')
 
+def show_dep_list(request,hos_id):
+
+    hos = Hospital.objects.get(id=hos_id)
+    dep1 = Department.objects.filter(level=0)
+
+    return render_to_response('dep_to_be_regis.html', {'hos':hos ,'departments_1':dep1} )
+
+
+def show_capacity_for_dep(request):
+    hos_id = request.POST.get('hos_id')
+    dep2_id = request.POST.get('dep2_id')
+    print(hos_id)
+    print(dep2_id)
+
+    doc = Doctor_Hospital.objects.filter(hospital_id_id = hos_id).values('doctor_id')
+    doc_dep = Doctor_Department.objects.filter(doctor_id__in=doc,department_id_id=dep2_id).values('doctor_id')
+    tobeR = ToBeRegistered.objects.filter(doctor_id__in=doc_dep).order_by('date')
+    dates = tobeR.values('date')
+    print(tobeR)
+    print(dates)
+
+    date_c = []
+    cap_c = []
+
+    for da in dates :
+        count = 0
+        print("..1")
+        print(da.get('date'))
+
+        for to in tobeR :
+            print("..2")
+            print(to.date)
+            if to.date == da.get('date') :
+                print("..3")
+                count = count + to.capacity
+                #print(count)
+                #dic = (to.date, count)
+                #print(dic)
+                #cap.add(dic)
+        if not da.get('date') in date_c:
+            date_c.append(da.get('date'))
+            cap_c.append(count)
+
+    print(date_c)
+    print(cap_c)
+
+    #计算出每天，医院这个科室所有医生的容量总和
+
+    return render(request,'capacity_for_dep2.html',{'dates': date_c, 'caps': cap_c})
+
+def show_doc_list(request):
+    return render_to_response('doc_to_be_regis.html')
 
 
 

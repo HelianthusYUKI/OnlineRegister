@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>科室列表</title>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="page-wrapper">
+        <div class="header">
+            <h1 class="page-header">
+                医院信息
+            </h1>
+            <!--可选择返回的不知道叫什么的东西-->
+            <ol class="breadcrumb">
+                <li><a href="../../">{{cou.name}}</a></li>
+                <li class="active">医院信息</li>
+            </ol>
+        </div>
+        <input style="display: none" id="hos_id_holder" value="{{ hos.id }}">
+
+        <!--这是我们操作的主题框-->
+        <div id="page-inner">
+            <!--新增课程表格-->
+           <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">科室列表</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-horizontal">
+
+                                <div class="form-group">
+                                    <label >一级科室：</label>
+                                </div>
+                                <div class="form-group">
+                                    <!--label class="col-md-2 control-label">一级科室：</label-->
+                                    <div class="col-md-12" id="dep1">
+                                         {% for dep1 in departments_1 %}
+                                            <label onclick="show_dep2({{ dep1.code }})">{{ dep1.code }}:{{ dep1.name }}</label>
+                                         {% endfor %}
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>二级科室：</label>
+                                </div>
+                                <div class="form-group">
+                                    <!--label class="col-md-2 control-label">二级科室：</label-->
+                                    <div class="col-md-10" id="dep2">
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-horizontal">
+                                <div id="capacity_for_dep">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- /. PAGE INNER  -->
+    </div>
+    </div>
+    </div>
+</body>
+<link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- 可选的Bootstrap主题文件（一般不使用） -->
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap-theme.min.css"></script>
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+    <script>
+        function show_dep2(p) {
+
+            $.post("/OnlineRegister/show_dep2/",
+                {
+                    dep1: p
+                },
+        	    function(data) {
+                    $('#dep2').replaceWith(data);
+                });
+
+        }
+
+        function show_capacity_for_dep(p) {
+            var hos_id = $('#hos_id_holder').val();
+
+            $.post("/OnlineRegister/show_capacity_for_dep/",
+                {
+                    dep2_id: p,
+                    hos_id: hos_id
+                },
+        	    function(data) {
+                    $('#capacity_for_dep').replaceWith(data);
+                });
+
+        }
+
+    </script>
+</html>
