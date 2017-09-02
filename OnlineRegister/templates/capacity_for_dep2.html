@@ -1,15 +1,33 @@
 <div id="capacity_for_dep">
+    <input style="display: none" id="dep2_id_" value="{{ dep2_id }}">
     <table border="2">
         <tr>
             <td>日期</td>
             {% for d in dates %}
-                <td>{{ d|date:"Y-m-d"}}</td>
+                <td >{{ d|date:"Y-m-d"}} </td>
             {% endfor %}
         </tr>
         <tr>
             <td>容量</td>
             {% for c in caps %}
             <td>{{ c }}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>显示医生容量</td>
+
+            {% for d in dates %}
+
+                <td>
+                    <form method="post" action="/OnlineRegister/show_doc_list/">
+                        <input style="display: none" name="dep2_id" value="{{ dep2_id }}">
+                        <input style="display: none" name="hos_id" value="{{ hos_id }}">
+
+                        <input style="display: none" name="date" value="{{ d|date:"Y-m-d H:i:s" }}">
+                        <button type="submit">医生</button>
+                    </form>
+                </td>
+
             {% endfor %}
         </tr>
     </table>

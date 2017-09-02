@@ -591,12 +591,13 @@ def reservation(request):
 #用户挂号功能，点击某天的某个医生（传入toBeRegistered_id），进行挂号操作（生成挂号订单，跳转支付页面，支付成功后生成挂号单）
 def show_reservation_order(request):
     print("show reservation order")
-
-    if request.method == "GET":
-        #toBeRegistered_id = request.POST.get('toBeRegistered_id')
-        #user_id = request.session['id']
-        user_id = 1
-        toBeRegistered_id = 1
+    if not request.method == "POST":
+        raise Http404
+    elif request.session['type']=="user":
+        toBeRegistered_id = request.POST.get('tobeR_id')
+        user_id = request.session['id']
+        #user_id = 1
+        #toBeRegistered_id = 1
 
         user = User.objects.get(id=user_id)
         toBeRegistered = ToBeRegistered.objects.get(id=toBeRegistered_id)
@@ -628,7 +629,7 @@ def show_reservation_order(request):
                                                             'toBeRegistered': toBeRegistered,
                                                             })
     else:
-        raise Http404
+        return HttpResponse("还未登录!")
 
 
 def creat_reservation_order(request):
@@ -772,49 +773,80 @@ def show_dep_list(request,hos_id):
 
 
 def show_capacity_for_dep(request):
-    hos_id = request.POST.get('hos_id')
-    dep2_id = request.POST.get('dep2_id')
-    print(hos_id)
-    print(dep2_id)
+    if request.method == "POST":
+        hos_id = request.POST.get('hos_id')
+        dep2_id = request.POST.get('dep2_id')
+        print(hos_id)
+        print(dep2_id)
 
-    doc = Doctor_Hospital.objects.filter(hospital_id_id = hos_id).values('doctor_id')
-    doc_dep = Doctor_Department.objects.filter(doctor_id__in=doc,department_id_id=dep2_id).values('doctor_id')
-    tobeR = ToBeRegistered.objects.filter(doctor_id__in=doc_dep).order_by('date')
-    dates = tobeR.values('date')
-    print(tobeR)
-    print(dates)
+        doc = Doctor_Hospital.objects.filter(hospital_id_id = hos_id).values('doctor_id')
+        doc_dep = Doctor_Department.objects.filter(doctor_id__in=doc,department_id_id=dep2_id).values('doctor_id')
+        tobeR = ToBeRegistered.objects.filter(doctor_id__in=doc_dep).order_by('date')
+        dates = tobeR.values('date')
+        print(tobeR)
+        print(dates)
 
-    date_c = []
-    cap_c = []
+        date_c = []
+        cap_c = []
 
-    for da in dates :
-        count = 0
-        print("..1")
-        print(da.get('date'))
+        for da in dates :
+            count = 0
+            print("..1")
+            print(da.get('date'))
 
-        for to in tobeR :
-            print("..2")
-            print(to.date)
-            if to.date == da.get('date') :
-                print("..3")
-                count = count + to.capacity
-                #print(count)
-                #dic = (to.date, count)
-                #print(dic)
-                #cap.add(dic)
-        if not da.get('date') in date_c:
-            date_c.append(da.get('date'))
-            cap_c.append(count)
+            for to in tobeR :
+                print("..2")
+                print(to.date)
+                if to.date == da.get('date') :
+                    print("..3")
+                    count = count + to.capacity
+                    #print(count)
+                    #dic = (to.date, count)
+                    #print(dic)
+                    #cap.add(dic)
+            if not da.get('date') in date_c:
+                date_c.append(da.get('date'))
+                cap_c.append(count)
 
-    print(date_c)
-    print(cap_c)
+        print(date_c)
+        print(cap_c)
 
-    #计算出每天，医院这个科室所有医生的容量总和
+        #计算出每天，医院这个科室所有医生的容量总和
 
-    return render(request,'capacity_for_dep2.html',{'dates': date_c, 'caps': cap_c})
+        return render(request,'capacity_for_dep2.html',{'dates': date_c,
+                                                        'caps': cap_c,
+                                                        'dep2_id': dep2_id,
+                                                        'hos_id': hos_id})
+    else:
+        raise Http404
 
 def show_doc_list(request):
-    return render_to_response('doc_to_be_regis.html')
+    if request.method == "POST":
+        #toBeRs = request.POST.get('toBeR')
+        hos_id = request.POST.get('hos_id')
+        dep2_id = request.POST.get('dep2_id')
+        date = request.POST.get('date')
+        #print(toBeRs)说明前端传回后端的只能是str
+        print(date)
+
+        if not request.session['type'] == "user":
+            user_id = 0
+        else:
+            user_id = request.session['id']
+        print(user_id)
+
+        #筛选出这个医院这个科室的医生所选日期的toBeR对象传入
+        doc = Doctor_Hospital.objects.filter(hospital_id_id=hos_id).values('doctor_id')
+        doc_dep = Doctor_Department.objects.filter(doctor_id__in=doc, department_id_id=dep2_id).values('doctor_id')
+        tobeR = ToBeRegistered.objects.filter(doctor_id__in=doc_dep,date=date)
+
+        print(tobeR)
+
+
+        return render_to_response('capacity_for_doc.html',{'user_id': user_id,
+                                                           'tobeRs': tobeR})
+    else:
+        raise Http404
 
 
 
