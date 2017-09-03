@@ -1,10 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load staticfiles %}
     <meta charset="UTF-8">
     <title>预约信息维护-已预约</title>
+    <link rel="stylesheet" href="{% static 'build/kalendae.css' %}" type="text/css">
+    <script type='text/javascript' src="{% static 'build/kalendae.standalone.js' %}"></script>
+    <!-- 这里不引入min.js是因为在后面要修改js -->
+
 </head>
 <body>
+    <div id="page-wrapper">
+        <div class="header">
+            <h1 class="page-header">
+                医院信息维护
+            </h1>
+            <!--可选择返回的不知道叫什么的东西-->
+            <ol class="breadcrumb">
+                <li><a href="../../">{{cou.name}}</a></li>
+                <li class="active">医生信息</li>
+            </ol>
+        </div>
 
+        <!--这是我们操作的主题框-->
+        <div id="page-inner">
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">医生列表</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-horizontal" >
+                                <div class="form-group" >
+                                    <div style="float:left;">
+                                        <select class="form-control" id = "province" >
+                                            <option value="beijing">北京市</option>
+                                        </select>
+                                    </div>
+                                    <div style="float:left;">
+                                        <select class="form-control" id = "city" >
+                                            <option value="beijing">北京市</option>
+                                        </select>
+                                    </div>
+                                    <div style="float:left;">
+                                        <select class="form-control" id = "district1"  onclick="districtSelected1()" >
+                                            <option value='0'>不选择</option>
+                                            <option value=110101 >东城区</option>
+                                            <option value=110102 >西城区</option>
+                                            <option value=110105 >朝阳区</option>
+                                            <option value=110108 >海淀区</option>
+                                        </select>
+                                    </div>
+
+                                    <div id = "select-hospital-option1" style="float:left;">
+                                        <select class="form-control" id="ho">
+                                            <option value='0'>不选择</option>
+                                        </select>
+                                    </div>
+
+                                    <div id = "select-dep1-option" style="float:left;">
+                                        <select class="form-control" id="dep1" name="dep1" onclick="dep1Selected()">
+                                            <option value='0'>不选择</option>
+                                            {% for dep1 in dep1s %}
+                                                <option value={{ dep1.code }}>{{ dep1.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div id = "select-dep2-option" style="float:left;">
+                                        <select class="form-control" id="dep2" name="dep2">
+                                            <option value='0'>不选择</option>
+                                        </select>
+                                    </div>
+
+                                    <div >
+                                        <button id="search_doc" onclick="search_doctor()" >确认搜索</button>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+
+                            <form class="form-horizontal" method="post" action="/OnlineRegister/show_reservation/">
+                                   <div id="show_doctorsss">
+
+                                    </div>
+                                <input class="auto-kal" name="date">
+                                <button type="submit">显示预约信息</button>
+                            </form>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
 </body>
+
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- 可选的Bootstrap主题文件（一般不使用） -->
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap-theme.min.css"></script>
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script>
+    function districtSelected1() {
+            var district = $('#district1').val();
+
+            //ajax 提交表单
+            $.post("/OnlineRegister/alter_hospital_select1_1/",
+                {
+                    district: district
+                },
+        	    function(data) {
+                    $('#select-hospital-option1').replaceWith(data);
+
+                });
+                return false;       //阻止表单提交
+         };
+
+     function dep1Selected() {
+        var dep1_code = $('#dep1').val();
+
+        $.post("/OnlineRegister/show_dep2_2/",
+                {
+                    dep1_code: dep1_code
+                },
+        	    function(data) {
+                    $('#dep2').replaceWith(data);
+
+                });
+       return false;
+    };
+
+     function search_doctor() {
+
+         var hos = $('#ho').val();
+         var dep1 = $('#dep1').val();
+         var dep2 = $('#dep2').val();
+
+         //ajax 提交表单
+         $.post("/OnlineRegister/search_doctor2/",
+             {
+                 hospital: hos,
+                 dep1: dep1,
+                 dep2: dep2
+             },
+             function (data) {
+                 $('#show_doctorsss').replaceWith(data);
+             }
+         );
+     }
+</script>
+
 </html>

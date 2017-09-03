@@ -123,6 +123,12 @@ def admin_left(request):
     print("load left")
     return render_to_response('admin_left.html')
 
+
+
+########################################################
+########################################################
+##这是后台操作
+
 def admin_hos_wh(request):
     return render_to_response('admin_hos_wh.html')
 
@@ -438,6 +444,7 @@ def add_doc(request):
 
 def alter_doc(request):
     print("alter doc")
+
     return
 
 def del_doc(request):
@@ -580,10 +587,71 @@ def alter_to_be_registered(request):
 
 def reservation(request):
     print("reservation")
-    return render_to_response('reservation.html')
+
+    dep1 = Department.objects.filter(level=0)
+
+    #从request中得到hos_id,dep2_id,doc_id,date
+    #显示已预约信息：选择区县、医院、科室、医生、日期，显示已预约信息
+
+    return render_to_response('reservation.html',{'dep1s':dep1})
+
+def show_reservation(request):
+
+    if request.method == "POST":
+        doc_id = request.POST.get('doc')
+        date = request.POST.get('date')
+        print(doc_id)
+        print(date)
+
+        t = date.strip()
+        t = t.split("/")
+        date_format = t[2] + "-" + t[0] + "-" + t[1] + " 23:59:59"
+        print(date_format)
+
+        res = Reservation.objects.filter(doctor_id_id=doc_id,date=date_format,ifJiuZhen=False)
+        print(res)
+
+        return render_to_response('reservation_list.html',{'res': res})
+    else:
+        raise Http404
+
+def del_reservation_for_admin(request,re_id):
+    print("del reservation for admin")
+
+    re = Reservation.objects.get(id=re_id)
+
+    try:
+        to = ToBeRegistered.objects.get(id=re.toBeR_id)
+    except:
+        re.delete()
+    else:
+        to.capacity = to.capacity + 1
+        to.save()
+        re.delete()
+
+    print("del reservation successfully!")
+
+    return HttpResponse("取消成功！")
+
+
+def jiuZhen(request,re_id):
+    print("jiuzhen")
+
+    re = Reservation.objects.get(id=re_id)
+    re.ifJiuZhen = True
+    re.save()
+
+    return HttpResponse("就诊成功！")
 
 
 
+
+########################################################
+########################################################
+
+
+
+########################################################
 ########################################################
 ##这是后台和前台的分割线,以下是User部分
 

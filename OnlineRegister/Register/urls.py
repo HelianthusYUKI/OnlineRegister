@@ -45,6 +45,9 @@ url(r'^search_doctor2/$', search_doctor2),
 
 
     url(r'^reservation/$',reservation),
+    url(r'^show_reservation/$',show_reservation),
+    url(r'^del_reservation_for_admin/(\d+)/$',del_reservation_for_admin),
+    url(r'^jiuZhen/(\d+)/$',jiuZhen),
 
     url(r'^show_reservation_order/$',show_reservation_order),
     url(r'^creat_reservation_order/$',creat_reservation_order),
