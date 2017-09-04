@@ -1,5 +1,5 @@
 ﻿<!--navbar 这个是最上边的导航栏，他是根据navbar上下布局的-->
-<nav class="navbar navbar-default top-navbar" role="navigation">
+<nav class="navbar navbar-default top-navbar" role="navigation" style="height:10px; filter:alpha(Opacity=85);-moz-opacity:0.85;opacity: 0.85; ">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
             <span class="sr-only">Toggle navigation</span>
@@ -7,7 +7,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/EducationalSystem/"><strong><i class="icon fa fa-plane"></i> BRILLIANT</strong></a>
+        <a class="navbar-brand" href="/OnlineRegister/show_hos_list/"><strong><i class="icon fa fa-plane"></i> 在线预约挂号信息浏览</strong></a>
 
         <div id="sideNav" href="">
 
@@ -19,26 +19,28 @@
             <li class="dropdown profile_details_drop"  style="margin-top:-15px;">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="padding-bottom:5px;">
                     <div class="profile_img">
-                        <span class="prfil-img"><img src="/static/imgs/user.png" alt="" style="height:50px; width:50px; margin-right:50px;"> </span>
+                        <!--span class="prfil-img"><img src="/static/imgs/user.png" alt="" style="height:50px; width:50px; margin-right:50px;"> </span-->
                         <div class="user-name">
-                            <p style="padding-top:8px; margin:0 0 3px;">{{per.name}}</p>
-                            <span>{{str}}</span>
+                            {% if type == 1 %}
+                            <p href="/OnlineRegister/show_user_info/" style="padding-top:8px; margin:0 0 3px; ">{{title}}：{{name}}</p>
+                            {% endif %}
+                             {% if not type == 1 %}
+                            <p style="padding-top:8px; margin:0 0 3px; ">{{title}}：{{name}}</p>
+                            {% endif %}
+                            {% if type == 0 %}
+                            <a href="/OnlineRegister/logout/"><i class="fa fa-sign-out fa-fw"></i>注册</a>
+                            {% endif %}
+                            {% if not type == 0 %}
+                            <a href="/OnlineRegister/logout/"><i class="fa fa-sign-out fa-fw"></i>注销</a>
+                            {% endif %}
                         </div>
+                    </li>
                         <i class="fa fa-angle-down lnr"></i>
                         <i class="fa fa-angle-up lnr"></i>
                         <div class="clearfix"></div>
                     </div>
                 </a>
-                <!--dropdown-User-Menu-->
-                <ul class="dropdown-menu dropdown-user" style="padding-left: 10px;padding-right: 10px;">
-                    <!--<li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                    </li>
-                    <li class="divider"></li>-->
-                    <li><a href="/EducationalSystem/logout/"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                    </li>
-                </ul>
+                
                 <!--/. dropdown-User-Menu-->
             </li>
         </ul>

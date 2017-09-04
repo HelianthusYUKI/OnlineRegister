@@ -5,6 +5,8 @@
     <title>用户信息</title>
 </head>
 <body>
+<div id="wrapper">
+    <nav id="headerer"></nav>
     <div id="page-wrapper">
         <div class="header">
             <h1 class="page-header">
@@ -171,7 +173,7 @@
                 </div>
             </div>
         </div>
-
+        </div>
     </div>
 </body>
 
@@ -187,6 +189,13 @@
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
+        $.get('/OnlineRegister/show_user_title/',
+        function(data){
+            console.debug("data")
+            $('#headerer').replaceWith(data);
+        });
+
+        
         function show_alter() {
             $('.user_info').show();
         }

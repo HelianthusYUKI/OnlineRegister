@@ -1,0 +1,13 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-image: url("/static/imgs/2.jpg");
+}
+
+#page-wrapper{
+	position: absolute;
+	
+	left: 50%;
+	width: 50%;
+	transform: translate(-50%,0);
+	filter:alpha(Opacity=85);-moz-opacity:0.85;opacity: 0.85; 
+}

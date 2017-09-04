@@ -10,14 +10,45 @@
 
 </head>
 <body>
+<div id="wrapper">
+    <nav id="headerer"></nav>
+    <div id="page-wrapper">
+        <div class="header">
+            <h1 class="page-header">
+                医院信息维护
+            </h1>
+            <!--可选择返回的不知道叫什么的东西-->
+            <ol class="breadcrumb">
+                <li><a href="../../">{{cou.name}}</a></li>
+                <li class="active">科室信息</li>
+            </ol>
+        </div>
 
-<div id="reservation_list">
-    {% for re in res %}
-        <label>挂号人：{{ re.user_id.name }}，医生：{{ re.doctor_id.name }}，应就诊日期：{{ re.date|date:"Y-m-d" }}</label>
-        <button type="submit" onclick="jiuZhen({{ re.id }})">就诊</button>
-        <button type="submit" onclick="del_reservation({{ re.id }})">取消</button>
-    {% endfor %}
-</div>
+        <!--这是我们操作的主题框-->
+        <div id="page-inner">
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">科室列表</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                                <div id="reservation_list">
+                                    {% for re in res %}
+                                        <label>挂号人：{{ re.user_id.name }}，医生：{{ re.doctor_id.name }}，应就诊日期：{{ re.date|date:"Y-m-d" }}</label>
+                                        <button type="submit" onclick="jiuZhen({{ re.id }})">就诊</button>
+                                        <button type="submit" onclick="del_reservation({{ re.id }})">取消</button>
+                                    {% endfor %}
+                                </div>
+                                  </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
 
 </body>
 

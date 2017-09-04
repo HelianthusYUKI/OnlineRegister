@@ -113,7 +113,28 @@ def adminLogin(request):
         print("???")
         raise Http404
 
+def logout(request):
+    print("logout")
+    request.session['type'] = 'no'
+    return render_to_response('index.html')
 
+
+def show_user_title(request):
+    if request.session['type'] == "user":
+        type = 1
+        title = "用户"
+        user = User.objects.get(id=request.session['id'])
+        name = user.name
+    elif request.session['type'] == "admin":
+        type = 2
+        title = "管理员"
+        name = "系统"
+    else:
+        type = 0
+        title = "未注册用户"
+        name = ""
+
+    return render(request,'header.html',{'title':title, 'name': name, 'type': type})
 
 def header(request):
     print("load header")
@@ -697,7 +718,7 @@ def show_reservation_order(request):
                                                             'toBeRegistered': toBeRegistered,
                                                             })
     else:
-        return HttpResponse("还未登录!")
+        return HttpResponse("用户还未登录!")
 
 
 def creat_reservation_order(request):

@@ -9,7 +9,9 @@ urlpatterns = [
     url(r'^$',index),
     url(r'^login/$',login),
     url(r'^admin_login/$',adminLogin),
+    url(r'^logout/$',logout),
     url(r'^register/$',register),
+    url(r'^show_user_title/$', show_user_title),
 
     url(r'^header.html$',header),
     url(r'^admin_left.html$',admin_left),

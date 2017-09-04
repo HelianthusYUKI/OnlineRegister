@@ -6,6 +6,9 @@
 </head>
 <body>
     <div id="wrapper">
+
+        <nav id="headerer"></nav>
+    
         <div id="page-wrapper">
         <div class="header">
             <h1 class="page-header">
@@ -93,6 +96,13 @@
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <script>
+        $.get('/OnlineRegister/show_user_title/',
+        function(data){
+            console.debug("data")
+            $('#headerer').replaceWith(data);
+        });
+
+
         function districtSelected() {
             var district = $('#search_district').val();
 

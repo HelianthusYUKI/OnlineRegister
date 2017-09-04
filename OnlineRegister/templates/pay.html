@@ -5,17 +5,51 @@
     <title>付款</title>
 </head>
 <body>
-    <form method="post" action="/OnlineRegister/creat_reservation/">
-        <label>订单生成时间：<td>{{ reservation_order.createdTime|date:"Y-m-d H:i:s" }}</td></label>
-        <input name="reservation_order_id" value="{{reservation_order.id}}" style="display: none">
-        <input name="toBeR_id" value="{{reservation_order.toBeRegistered_id_id}}" style="display: none">
-        <input name="doc_id" value="{{doc_id}}" style="display: none">
-        <input name="date" value="{{ date }}" style="display: none" >
-        <input name="user_id" value="{{user_id}}" style="display: none">
+<div id="wrapper">
+    <nav id="headerer"></nav>
+    <div id="page-wrapper">
+        <div class="header">
+            <h1 class="page-header">
+                医院信息维护
+            </h1>
+            <!--可选择返回的不知道叫什么的东西-->
+            <ol class="breadcrumb">
+                <li><a href="../../">{{cou.name}}</a></li>
+                <li class="active">科室信息</li>
+            </ol>
+        </div>
+
+        <!--这是我们操作的主题框-->
+        <div id="page-inner">
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">科室列表</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <form method="post" action="/OnlineRegister/creat_reservation/">
+                                <label>订单生成时间：<td>{{ reservation_order.createdTime|date:"Y-m-d H:i:s" }}</td></label>
+                                <input name="reservation_order_id" value="{{reservation_order.id}}" style="display: none">
+                                <input name="toBeR_id" value="{{reservation_order.toBeRegistered_id_id}}" style="display: none">
+                                <input name="doc_id" value="{{doc_id}}" style="display: none">
+                                <input name="date" value="{{ date }}" style="display: none" >
+                                <input name="user_id" value="{{user_id}}" style="display: none">
 
 
-        <button type="submit">确认付款</button>
-    </form>
+                                <button type="submit">确认付款</button>
+                            </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+        
 
 </body>
 </html>
