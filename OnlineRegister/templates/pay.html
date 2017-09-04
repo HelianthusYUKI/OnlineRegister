@@ -1,21 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load staticfiles %}
     <meta charset="UTF-8">
     <title>付款</title>
+    <script type="text/javascript" src="/static/4assets/js/jquery-1.10.2.js"></script>
+    <!-- Bootstrap Js -->
+    <script type="text/javascript" src="/static/4assets/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Js -->
+    <script type="text/javascript" src="/static/4assets/js/jquery.metisMenu.js"></script>
+    <!-- Bootstrap Styles-->
+    <link href="/static/4assets/css/bootstrap.css" type="text/css" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="/static/4assets/css/font-awesome.css" type="text/css" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <!--link href="/static/css/jiaowu.css" type="text/css" rel="stylesheet" /-->
+    <!-- Google Fonts-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+
+    <link href="/static/css/register.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
 <div id="wrapper">
     <nav id="headerer"></nav>
     <div id="page-wrapper">
         <div class="header">
-            <h1 class="page-header">
-                医院信息维护
+            <h1 class="page-header" style="color: #F0F0F0;">
+               挂号
             </h1>
             <!--可选择返回的不知道叫什么的东西-->
-            <ol class="breadcrumb">
-                <li><a href="../../">{{cou.name}}</a></li>
-                <li class="active">科室信息</li>
+            <ol class="breadcrumb" style="color: #F0F0F0;">
+                <li><a onclick="back()">订单确认</a></li>
+                <li class="active">付款信息</li>
             </ol>
         </div>
 
@@ -27,7 +43,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="card-title">
-                                <div class="title">科室列表</div>
+                                <div class="title">付款</div>
                             </div>
                         </div>
                         <div class="panel-body">
@@ -49,7 +65,19 @@
         </div>
         </div>
         </div>
-        
 
+</div>
 </body>
+<script>
+     $.get('/OnlineRegister/show_user_title/',
+        function(data){
+            console.debug("data")
+            $('#headerer').replaceWith(data);
+        });
+
+     function back() {
+         window.history.back();
+     }
+
+</script>
 </html>

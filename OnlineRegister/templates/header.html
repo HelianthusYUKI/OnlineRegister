@@ -22,11 +22,12 @@
                         <!--span class="prfil-img"><img src="/static/imgs/user.png" alt="" style="height:50px; width:50px; margin-right:50px;"> </span-->
                         <div class="user-name">
                             {% if type == 1 %}
-                            <p href="/OnlineRegister/show_user_info/" style="padding-top:8px; margin:0 0 3px; ">{{title}}：{{name}}</p>
+                            <a href="/OnlineRegister/show_user_info/" style="padding-top:8px; margin:0 0 3px; ">{{title}}：{{name}}</a>
                             {% endif %}
                              {% if not type == 1 %}
-                            <p style="padding-top:8px; margin:0 0 3px; ">{{title}}：{{name}}</p>
+                            <a style="padding-top:8px; margin:0 0 3px; ">{{title}}：{{name}}</a>
                             {% endif %}
+                            <br>
                             {% if type == 0 %}
                             <a href="/OnlineRegister/logout/"><i class="fa fa-sign-out fa-fw"></i>注册</a>
                             {% endif %}
@@ -34,10 +35,7 @@
                             <a href="/OnlineRegister/logout/"><i class="fa fa-sign-out fa-fw"></i>注销</a>
                             {% endif %}
                         </div>
-                    </li>
-                        <i class="fa fa-angle-down lnr"></i>
-                        <i class="fa fa-angle-up lnr"></i>
-                        <div class="clearfix"></div>
+
                     </div>
                 </a>
                 

@@ -15,6 +15,7 @@ urlpatterns = [
 
     url(r'^header.html$',header),
     url(r'^admin_left.html$',admin_left),
+    url(r'^backstage_index.html$',backstage_index),
 
     url(r'^admin_hos_wh/$',admin_hos_wh),
     url(r'^hospital_search/$',hospital_search),

@@ -144,6 +144,9 @@ def admin_left(request):
     print("load left")
     return render_to_response('admin_left.html')
 
+def backstage_index(request):
+    return render_to_response("backstage_index.html")
+
 
 
 ########################################################

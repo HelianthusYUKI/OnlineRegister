@@ -1,20 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load staticfiles %}
     <meta charset="UTF-8">
     <title>用户信息</title>
+    <script type="text/javascript" src="/static/4assets/js/jquery-1.10.2.js"></script>
+    <!-- Bootstrap Js -->
+    <script type="text/javascript" src="/static/4assets/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Js -->
+    <script type="text/javascript" src="/static/4assets/js/jquery.metisMenu.js"></script>
+    <!-- Bootstrap Styles-->
+    <link href="/static/4assets/css/bootstrap.css" type="text/css" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="/static/4assets/css/font-awesome.css" type="text/css" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <!--link href="/static/css/jiaowu.css" type="text/css" rel="stylesheet" /-->
+    <!-- Google Fonts-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+
+    <link href="/static/css/register.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
 <div id="wrapper">
     <nav id="headerer"></nav>
     <div id="page-wrapper">
         <div class="header">
-            <h1 class="page-header">
+            <h1 class="page-header" style="color: #F0F0F0;">
                 用户信息
             </h1>
             <!--可选择返回的不知道叫什么的东西-->
             <ol class="breadcrumb">
-                <li><a href="../../">{{cou.name}}</a></li>
+                <li><a href="/OnlineRegister/">系统主页</a></li>
                 <li class="active">用户信息查看和修改</li>
             </ol>
         </div>
@@ -177,23 +193,18 @@
     </div>
 </body>
 
-<!-- 新 Bootstrap 核心 CSS 文件 -->
-    <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- 可选的Bootstrap主题文件（一般不使用） -->
-    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap-theme.min.css"></script>
-
-    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-
-    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
+
         $.get('/OnlineRegister/show_user_title/',
         function(data){
             console.debug("data")
             $('#headerer').replaceWith(data);
         });
+
+     function back() {
+         window.history.back();
+     }
 
         
         function show_alter() {

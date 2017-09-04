@@ -4,6 +4,21 @@
     {% load staticfiles %}
     <meta charset="UTF-8">
     <title>预约信息维护-已预约</title>
+    <script type="text/javascript" src="/static/4assets/js/jquery-1.10.2.js"></script>
+    <!-- Bootstrap Js -->
+    <script type="text/javascript" src="/static/4assets/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Js -->
+    <script type="text/javascript" src="/static/4assets/js/jquery.metisMenu.js"></script>
+    <!-- Bootstrap Styles-->
+    <link href="/static/4assets/css/bootstrap.css" type="text/css" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="/static/4assets/css/font-awesome.css" type="text/css" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <!--link href="/static/css/jiaowu.css" type="text/css" rel="stylesheet" /-->
+    <!-- Google Fonts-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+
+    <link href="/static/css/register.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="{% static 'build/kalendae.css' %}" type="text/css">
     <script type='text/javascript' src="{% static 'build/kalendae.standalone.js' %}"></script>
     <!-- 这里不引入min.js是因为在后面要修改js -->
@@ -14,13 +29,13 @@
     <nav id="headerer"></nav>
     <div id="page-wrapper">
         <div class="header">
-            <h1 class="page-header">
-                医院信息维护
+            <h1 class="page-header" style="color: #F0F0F0;">
+                预约信息维护
             </h1>
             <!--可选择返回的不知道叫什么的东西-->
             <ol class="breadcrumb">
-                <li><a href="../../">{{cou.name}}</a></li>
-                <li class="active">科室信息</li>
+                <li><a onclick="back()">已预约信息</a></li>
+                <li class="active">已预约处理</li>
             </ol>
         </div>
 
@@ -64,6 +79,15 @@
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
+     $.get('/OnlineRegister/show_user_title/',
+        function(data){
+            console.debug("data")
+            $('#headerer').replaceWith(data);
+        });
+
+     function back() {
+         window.history.back();
+     }
     function jiuZhen(re_id) {
         window.location.href = "/OnlineRegister/jiuZhen/"+re_id+"/";
     }
