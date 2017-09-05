@@ -50,10 +50,10 @@
                         <div class="panel-body">
                             <form class="form-horizontal">
 
-                                <div class="form-group">
+                                <div class="">
                                     <label >一级科室：</label>
                                 </div>
-                                <div class="form-group">
+                                <div class="">
                                     <!--label class="col-md-2 control-label">一级科室：</label-->
                                     <div class="col-md-12" id="dep1">
                                          {% for dep1 in departments_1 %}
@@ -62,10 +62,10 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="">
                                     <label>二级科室：</label>
                                 </div>
-                                <div class="form-group">
+                                <div class="">
                                     <!--label class="col-md-2 control-label">二级科室：</label-->
                                     <div class="col-md-10" id="dep2">
 
@@ -92,10 +92,10 @@
                         <div class="panel-body">
 
                             <form class="form-horizontal" method="post" action="/OnlineRegister/add_department/">
-                                <div class="form-group">
+                                <div class="">
                                     <label>增加科室：</label>
                                 </div>
-                                <div class="form-group">
+                                <div class="">
                                     <div>
                                         <label>科室代码：</label>
                                         <input type="text" name="code">
@@ -114,12 +114,16 @@
                                 </div>
                             </form>
 
+                            <div class="row">
+                                        <br>
+                                    </div>
+
                             <form class="form-horizontal" method="post" action="/OnlineRegister/alter_department/">
 
-                                <div class="form-group">
+                                <div class="">
                                     <label>修改科室信息：</label>
                                 </div>
-                                <div class="form-group">
+                                <div class="">
                                     <!--label class="col-md-2 control-label">修改操作：</label-->
                                     <div>
                                         <label>原科室代码：</label>
@@ -143,12 +147,17 @@
                                 </div>
 
                             </form>
+
+                            <div class="row">
+                                        <br>
+                                    </div>
+
                             <form class="form-horizontal" method="post" action="/OnlineRegister/del_department/">
 
-                                <div class="form-group">
+                                <div class="">
                                     <label>删除科室：</label>
                                 </div>
-                                <div class="form-group">
+                                <div class="">
                                     <!--label class="col-md-2 control-label">修改操作：</label-->
                                     <div>
                                         <label>科室代码：</label>

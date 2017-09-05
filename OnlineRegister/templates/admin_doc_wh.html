@@ -48,48 +48,49 @@
                         </div>
                         <div class="panel-body">
                             <div class="form-horizontal" >
-                                <div class="form-group" >
-                                    <div style="float:left;">
-                                        <select class="form-control" id = "province" >
+                                <div class="row" >
+                                    <div class="col-md-2">
+                                        <select class="" id = "province" >
                                             <option value="beijing">北京市</option>
                                         </select>
                                     </div>
-                                    <div style="float:left;">
-                                        <select class="form-control" id = "city" >
+                                    <div class="col-md-2">
+                                        <select class="" id = "city" >
                                             <option value="beijing">北京市</option>
                                         </select>
                                     </div>
-                                    <div style="float:left;">
-                                        <select class="form-control" id = "district1"  onclick="districtSelected1()" >
+                                    <div class="col-md-2">
+                                        <select class="" id = "district1"  onclick="districtSelected1()" >
                                             <option value='0'>不选择</option>
                                             <option value=110101 >东城区</option>
                                             <option value=110102 >西城区</option>
                                             <option value=110105 >朝阳区</option>
                                             <option value=110108 >海淀区</option>
                                         </select>
+                                    </div >
                                     </div>
-
-                                    <div id = "select-hospital-option1" style="float:left;">
-                                        <select class="form-control" id="ho">
+                                    <div class="row">
+                                    <div class="col-md-2" id = "select-hospital-option1" >
+                                        <select class="" id="ho">
                                             <option value='0'>不选择</option>
                                         </select>
                                     </div>
 
-                                    <div id = "select-dep1-option" style="float:left;">
-                                        <select class="form-control" id="dep1" name="dep1" onclick="dep1Selected()">
+                                    <div class="col-md-2" id = "select-dep1-option" >
+                                        <select class="" id="dep1" name="dep1" onclick="dep1Selected()">
                                             <option value='0'>不选择</option>
                                             {% for dep1 in dep1s %}
                                                 <option value={{ dep1.code }}>{{ dep1.name }}</option>
                                             {% endfor %}
                                         </select>
                                     </div>
-                                    <div id = "select-dep2-option" style="float:left;">
-                                        <select class="form-control" id="dep2" name="dep2">
+                                    <div class="col-md-2" id = "select-dep2-option" >
+                                        <select class="" id="dep2" name="dep2">
                                             <option value='0'>不选择</option>
                                         </select>
                                     </div>
 
-                                    <div >
+                                    <div class="col-md-2">
                                         <button id="search_doc" onclick="search_doctor()" >确认搜索</button>
                                     </div>
 
@@ -126,22 +127,24 @@
                         <div class="panel-body">
 
                             <form class="form-horizontal" method="post" action="/OnlineRegister/add_doctor/">
-                                <div class="form-group">
+                                <div class="">
                                     <label>增加医生：</label>
                                 </div>
-                                <div class="form-group">
-                                    <div style="float:left;">
-                                        <select class="form-control" id = "province" >
+
+                                <div class="">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <select class="" id = "province" >
                                             <option value="beijing">北京市</option>
                                         </select>
                                     </div>
-                                    <div style="float:left;">
-                                        <select class="form-control" id = "city" >
+                                    <div class="col-md-2">
+                                        <select class="" id = "city" >
                                             <option value="beijing">北京市</option>
                                         </select>
                                     </div>
-                                    <div style="float:left;">
-                                        <select class="form-control" id = "district2"  onclick="districtSelected2()" >
+                                    <div class="col-md-2">
+                                        <select class="" id = "district2"  onclick="districtSelected2()" >
                                             <option value=0>选择区县</option>
                                             <option value=110101 >东城区</option>
                                             <option value=110102 >西城区</option>
@@ -150,23 +153,28 @@
                                         </select>
                                     </div>
 
-                                    <div id = "select-hospital-option2" style="float:left;">
-                                        <select class="form-control" id="hospital" name="hospital">
+                                    <div class="col-md-2" id = "select-hospital-option2" >
+                                        <select class="" id="hospital" name="hospital">
                                             <option value=0>选择医院</option>
                                         </select>
                                     </div>
+                                    </div>
+                                    <div class="row">
+                                        <br>
+                                    </div>
 
-                                    <div style="float: none">
+                                    <div class="row">
+                                    <div class="col-md-4">
                                         <label>科室代号：</label>
                                         <input type="text" name="dep_code">
                                     </div>
 
-                                    <div style="float: none">
+                                    <div class="col-md-4">
                                         <label>医生姓名：</label>
                                         <input type="text" name="name">
                                     </div>
 
-                                    <div style="float: none">
+                                    <div class="col-md-2">
                                         <label>性别：</label>
                                         <select name="sex">
                                             <option value=1>男</option>
@@ -174,17 +182,31 @@
                                         </select>
                                     </div>
 
-                                    <div>
+                                     </div>
+                                     <div class="row">
+                                        <br>
+                                    </div>
+                                     <div class="row">
+                                    
+
+                                    <div class="col-md-4">
                                         <label>职位：</label>
                                         <input type="text" name="position">
                                     </div>
-                                    <div>
+                                    <div class="col-md-4">
                                         <label>电话号码：</label>
                                         <input type="number" name="phone">
+                                    </div> 
+                                     </div>
+                                     <div class="row">
+                                        <br>
                                     </div>
-                                    <div id="dep2">
+                                     <div class="row">
+                                    <div class="col-md-2" id="dep2">
                                         <button id="add_dep" type="submit" >确认增加</button>
                                     </div>
+                                    </div>
+
                                 </div>
                             </form>
 

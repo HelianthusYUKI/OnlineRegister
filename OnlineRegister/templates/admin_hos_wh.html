@@ -64,43 +64,55 @@
                         </div>
                         <div class="panel-body">
                             <div class="form-horizontal">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label class=" control-label">省：</label>
+                                        <div class="">
+                                            <select class="" id = "province" >
+                                                <option value="beijing">北京市</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class=" control-label">市：</label>
+                                        <div class="">
+                                            <select class="" id = "city" >
+                                                <option value="beijing">北京市</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class=" control-label">区：</label>
+                                        <div class="">
+                                            <select class="" id = "search_district" onclick="districtSelected()">
 
-                                <div class="form-group" style="float: left">
-                                    <label class="col-md-2 control-label">省：</label>
-                                    <div class="col-md-10">
-                                        <select class="form-control" id = "province" >
-                                            <option value="beijing">北京市</option>
-                                        </select>
+                                                <option value=110101 >东城区</option>
+                                                <option value=110102 >西城区</option>
+                                                <option value=110105 >朝阳区</option>
+                                                <option value=110108 >海淀区</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group" style="float: left">
-                                    <label class="col-md-2 control-label">市：</label>
-                                    <div class="col-md-10">
-                                        <select class="form-control" id = "city" >
-                                            <option value="beijing">北京市</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group" style="float: left">
-                                    <label class="col-md-2 control-label">区：</label>
-                                    <div class="col-md-10">
-                                        <select class="form-control" id = "search_district" onclick="districtSelected()">
 
-                                            <option value=110101 >东城区</option>
-                                            <option value=110102 >西城区</option>
-                                            <option value=110105 >朝阳区</option>
-                                            <option value=110108 >海淀区</option>
-                                        </select>
+
                                     </div>
-                                </div>
-                                <div style="float: right"></div>
-                                <div class="list-hospital-item"></div>
+
+                                    <div class="row">
+                                        <br>
+                                    </div>
+
+                                    <div class="row">
+                                    
+                                        <div class="list-hospital-item"></div>
+                                    </div>
+
 
                                 <!--<div class="form-group">-->
                                     <!--<div class="col-sm-offset-2 col-sm-10">-->
                                         <!--<button type="submit" class="btn btn-default">提交</button>-->
                                     <!--</div>-->
                                 <!--</div>-->
+
                             </div>
                         </div>
                     </div>
@@ -118,51 +130,72 @@
                         <div class="panel-body">
                             <div class="form-horizontal">
 
-                                <div class="form-group" style="float: left">
-                                    <label class="col-md-2 control-label">省：</label>
-                                    <div class="col-md-10">
-                                        <select class="form-control" id = "province" >
-                                            <option value="beijing">北京市</option>
-                                        </select>
+                                <div class="row">
+                                    <div class="col-md-2 " >
+                                        <label class="control-label">省：</label>
+                                        <div class="">
+                                            <select class="" id = "province" >
+                                                <option value="beijing">北京市</option>
+                                            </select>
+                                        </div>
+                                        
                                     </div>
-                                </div>
-                                <div class="form-group" style="float: left">
-                                    <label class="col-md-2 control-label">市：</label>
-                                    <div class="col-md-10">
-                                        <select class="form-control" id = "city" >
-                                            <option value="beijing">北京市</option>
-                                        </select>
+                                    <div class="col-md-2 " >
+                                        <label class="control-label">市：</label>
+                                        <div class="">
+                                            <select class="" id = "city" >
+                                                <option value="beijing">北京市</option>
+                                            </select>
+                                        </div>
+                                        
                                     </div>
-                                </div>
-                                <div class="form-group" style="float: left">
-                                    <label class="col-md-2 control-label">区：</label>
-                                    <div class="col-md-10">
-                                        <select class="form-control" id = "add_district" >
-                                            <option value=110101 >东城区</option>
-                                            <option value=110102 >西城区</option>
-                                            <option value=110105 >朝阳区</option>
-                                            <option value=110108 >海淀区</option>
-                                        </select>
+                                    <div class="col-md-2 " >
+                                        <label class="control-label">区：</label>
+                                        <div class="">
+                                            <select class="" id = "add_district" >
+                                                <option value=110101 >东城区</option>
+                                                <option value=110102 >西城区</option>
+                                                <option value=110105 >朝阳区</option>
+                                                <option value=110108 >海淀区</option>
+                                            </select>
+                                        </div>
+                                        
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">医院名称：</label>
-                                    <div class="col-sm-10">
+                                <div class="row">
+                                    <br>
+                                </div>
+
+                                <div class="row" >
+                                <div class="col-md-3 ">
+                                    <label >医院名称：</label>
+                                    <div >
                                         <input id="hos_name">
                                     </div>
+                                    
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">医院代码：</label>
-                                    <div class="col-sm-10">
+                                
+                                <div class="col-md-3 col-md-push-1 ">
+                                    <label >医院代码：</label>
+                                    <div >
                                         <input id="hos_code">
                                     </div>
+                                    
                                 </div>
-                                <div class="form-group">
+                                </div>
 
-                                    <div class="col-sm-12">
+                                <div class="row">
+                                    <br>
+                                </div>
+
+                                <div class="row">
+                                <div class="col-md-3 " >
+
+                                    <div>
                                         <button class="btn_add_hos" onclick="add_hospital()">添加医院</button>
                                     </div>
+                                </div>
                                 </div>
 
 
@@ -189,66 +222,85 @@
                         </div>
                         <div class="panel-body">
                             <div class="form-horizontal">
+                                <div class="row">
+                                    <div class="col-md-2" >
+                                        <label class="control-label">省：</label>
+                                        <div class="">
+                                            <select class="" id = "province" >
+                                                <option value="beijing">北京市</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2" >
+                                        <label class="control-label">市：</label>
+                                        <div class="">
+                                            <select class="" id = "city" >
+                                                <option value="beijing">北京市</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2" >
+                                        <label class="control-label">区：</label>
+                                        <div class="">
+                                            <select class="" id = "alter_district" onclick="districtSelected2()">
+                                                <option value=110101 >东城区</option>
+                                                <option value=110102 >西城区</option>
+                                                <option value=110105 >朝阳区</option>
+                                                <option value=110108 >海淀区</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
-                                <div class="form-group" style="float: left">
-                                    <label class="col-md-2 control-label">省：</label>
-                                    <div class="col-md-10">
-                                        <select class="form-control" id = "province" >
-                                            <option value="beijing">北京市</option>
+                                   
+                                    
+                                <div class="col-md-2">
+                                    <label class="control-label">院：</label>
+                                    <div class="" id = "select-hospital-option1">
+                                        <select>
+                                            <option>选择医院</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group" style="float: left">
-                                    <label class="col-md-2 control-label">市：</label>
-                                    <div class="col-md-10">
-                                        <select class="form-control" id = "city" >
-                                            <option value="beijing">北京市</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group" style="float: left">
-                                    <label class="col-md-2 control-label">区：</label>
-                                    <div class="col-md-10">
-                                        <select class="form-control" id = "alter_district" onclick="districtSelected2()">
-                                            <option value=110101 >东城区</option>
-                                            <option value=110102 >西城区</option>
-                                            <option value=110105 >朝阳区</option>
-                                            <option value=110108 >海淀区</option>
-                                        </select>
-                                    </div>
+
                                 </div>
 
-                                <div class="form-group" style="float: left" >
-                                    <label class="col-md-2 control-label">院：</label>
-                                    <div class="col-md-10" id = "select-hospital-option1">
-                                    </div>
+                                 <div class="row">
+                                    <br>
                                 </div>
 
-                                <div class="form-group" id = "alter_field">
-                                    <label class="col-sm-2 control-label">医院名称：</label>
-                                    <div class="col-sm-10">
+                                <div class="row">
+                                <div class="col-md-3" id = "alter_field">
+                                    <label class=" control-label">医院名称：</label>
+                                    <div class="">
                                         <input id="altered_hos_name">
                                     </div>
-
-                                    <label class="col-sm-2 control-label">医院代码：</label>
-                                    <div class="col-sm-10">
+                                    </div>
+                                 <div class="col-md-3 col-md-push-1" id = "alter_field">
+                                    <label class="control-label">医院代码：</label>
+                                    <div class="">
                                         <input id="altered_hos_code">
                                     </div>
                                 </div>
+                                </div>
 
-                                <div class="form-group" style="float: left">
+                                <div class="row">
+                                    <br>
+                                </div>
 
-                                    <div class="col-sm-12">
+                                <div class="row">
+                                <div class="col-md-3">
+
+                                    <div class="">
                                         <button class="btn_add_hos" onclick="alter_hospital()">修改医院信息</button>
                                     </div>
                                 </div>
-                                <div class="form-group" style="float: left">
+                                <div class="col-md-3 col-md-pull-1" >
 
-                                    <div class="col-sm-12">
+                                    <div class="">
                                         <button class="btn_add_hos" onclick="del_hospital()">删除此医院</button>
                                     </div>
                                 </div>
-
+                                </div>
                                 <!--<div class="form-group">-->
                                     <!--<div class="col-sm-offset-2 col-sm-10">-->
                                         <!--<button type="submit" class="btn btn-default">提交</button>-->

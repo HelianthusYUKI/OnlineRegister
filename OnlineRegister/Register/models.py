@@ -47,7 +47,7 @@ class Doctor(models.Model):
     name = models.CharField(max_length=50, null=False)
     sex = models.IntegerField()
     position = models.CharField(max_length=50)
-    phone_number = models.IntegerField()
+    phone_number = models.CharField(max_length=50)
 
 class Registry_Hospital(models.Model):
     registry_id = models.ForeignKey(Registry)
