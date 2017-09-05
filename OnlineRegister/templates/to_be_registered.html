@@ -53,22 +53,23 @@
                         </div>
                         <div class="panel-body">
                             <div class="form-horizontal" >
-                                <div class="form-group" >
+                                <div class="" >
                                     <div>
                                         <label>医生选择:</label>
                                     </div>
 
-                                    <div style="float:left;">
+                                <div class="row">
+                                    <div class="col-md-2">
                                         <select  id = "province" >
                                             <option value="beijing">北京市</option>
                                         </select>
                                     </div>
-                                    <div style="float:left;">
+                                    <div class="col-md-2">
                                         <select  id = "city" >
                                             <option value="beijing">北京市</option>
                                         </select>
                                     </div>
-                                    <div style="float:left;">
+                                    <div class="col-md-2">
                                         <select  id = "district1"  onclick="districtSelected1(1)" >
                                             <option value='0'>不选择</option>
                                             <option value=110101 >东城区</option>
@@ -77,14 +78,18 @@
                                             <option value=110108 >海淀区</option>
                                         </select>
                                     </div>
-
-                                    <div class="select-hospital-option1" id = "select-hospital-option1" style="float:left;">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                    <div class="select-hospital-option1" id = "select-hospital-option1" >
                                         <select class="hos" id="ho">
                                             <option value='0'>不选择</option>
                                         </select>
                                     </div>
+                                    </div>
 
-                                    <div id = "select-dep1-option" style="float:left;">
+                                    <div class="col-md-2">
+                                    <div id = "select-dep1-option" >
                                         <select  id="dep1" name="dep1" onclick="dep1Selected(1)">
                                             <option value='0'>不选择</option>
                                             {% for dep1 in dep1s %}
@@ -92,21 +97,27 @@
                                             {% endfor %}
                                         </select>
                                     </div>
-                                    <div id = "select-dep2-option" style="float:left;">
+                                    </div>
+                                    <div class="col-md-2">
+                                    <div id = "select-dep2-option" >
                                         <select class="dep2" id="dep2" name="dep2">
                                             <option value='0'>不选择</option>
                                         </select>
                                     </div>
-
+                                    </div>
+                                    <div class="col-md-3">
                                     <div >
                                         <button id="search_doc" onclick="search_doctor(1)" >确认搜索</button>
                                     </div>
-
+                                    </div>
+                                </div>
 
 
                                 </div>
                             </div>
-
+                             <div class="row">
+                                    <br>
+                                </div>
                             <div class="form-horizontal">
                                    <form  action="/OnlineRegister/set_to_be_re/" method="post">
                                        <div class="show_doctorsss" id="show_doctorsss">
@@ -136,68 +147,86 @@
                         </div>
                         <div class="panel-body">
                             <div class="form-horizontal" >
-                                <div class="form-group" >
+                                <div class="" >
                                     <div>
                                         <label>医生选择:</label>
                                     </div>
 
-                                    <div style="float:left;">
-                                        <select  id = "province" >
-                                            <option value="beijing">北京市</option>
-                                        </select>
-                                    </div>
-                                    <div style="float:left;">
-                                        <select  id = "city" >
-                                            <option value="beijing">北京市</option>
-                                        </select>
-                                    </div>
-                                    <div style="float:left;">
-                                        <select id = "district2"  onclick="districtSelected1(2)" >
-                                            <option value='0'>不选择</option>
-                                            <option value=110101 >东城区</option>
-                                            <option value=110102 >西城区</option>
-                                            <option value=110105 >朝阳区</option>
-                                            <option value=110108 >海淀区</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="select-hospital-option1" id = "select-hospital-option1" style="float:left;">
-                                        <select class="hos" id="ho_2">
-                                            <option value='0'>不选择</option>
-                                        </select>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <select  id = "province" >
+                                                <option value="beijing">北京市</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <select  id = "city" >
+                                                <option value="beijing">北京市</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <select id = "district2"  onclick="districtSelected1(2)" >
+                                                <option value='0'>不选择</option>
+                                                <option value=110101 >东城区</option>
+                                                <option value=110102 >西城区</option>
+                                                <option value=110105 >朝阳区</option>
+                                                <option value=110108 >海淀区</option>
+                                            </select>
+                                        </div>
                                     </div>
 
-                                    <div id = "select-dep1-option" style="float:left;">
-                                        <select  id="dep1_2" name="dep1" onclick="dep1Selected(2)">
-                                            <option value='0'>不选择</option>
-                                            {% for dep1 in dep1s %}
-                                                <option value={{ dep1.code }}>{{ dep1.name }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                    <div id = "select-dep2-option" style="float:left;">
-                                        <select class="dep2" id="dep2_2" name="dep2">
-                                            <option value='0'>不选择</option>
-                                        </select>
+                                    <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="select-hospital-option1" id = "select-hospital-option1" >
+                                            <select class="hos" id="ho_2">
+                                                <option value='0'>不选择</option>
+                                            </select>
+                                        </div>
                                     </div>
 
-                                    <div >
-                                        <button id="search_doc" onclick="search_doctor(2)" >医生搜索</button>
+                                    <div class="col-md-2">
+                                        <div id = "select-dep1-option" >
+                                            <select  id="dep1_2" name="dep1" onclick="dep1Selected(2)">
+                                                <option value='0'>不选择</option>
+                                                {% for dep1 in dep1s %}
+                                                    <option value={{ dep1.code }}>{{ dep1.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div id = "select-dep2-option" >
+                                            <select class="dep2" id="dep2_2" name="dep2">
+                                                <option value='0'>不选择</option>
+                                            </select>
+                                        </div>
                                     </div>
 
+                                        <div class="col-md-3">
+                                            <button id="search_doc" onclick="search_doctor(2)" >医生搜索</button>
+                                        </div>
+                                    </div>
 
 
                                 </div>
                             </div>
 
+                            <div class="row">
+                                    <br>
+                                </div>
                             <div class="form-horizontal">
                                 <div>
                                     <div class="show_doctorsss"></div>
                                     <button id="btn_alt_doc" onclick="show_toberegis()">显示此医生的可预约信息</button>
                                 </div>
+                                <div class="row">
+                                    <br>
+                                </div>
                                 <form action="/OnlineRegister/alter_to_be_registered/" method="post">
                                     <div class="show_toberegis">
 
+                                    </div>
+                                    <div class="row">
+                                        <br>
                                     </div>
                                     <label>容量设置:</label><input type="number" name="capacity">
                                         <br>
