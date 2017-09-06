@@ -2,6 +2,13 @@ from django.http import Http404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
+from reportlab.pdfgen import canvas
+from datetime import datetime
+from io import BytesIO
+
+import reportlab.pdfbase.ttfonts
+reportlab.pdfbase.pdfmetrics.registerFont(reportlab.pdfbase.ttfonts.TTFont('song', '')) #注册字体
+
 
 
 # Create your views here.
@@ -96,13 +103,16 @@ def adminLogin(request):
         print(userType)
 
         if userType == 'admin':
-            admin = Admin.objects.get(name = userName, password = userPsw)
-            if admin:
+            try:
+                admin = Admin.objects.get(name = userName, password = userPsw)
+            except:
+                return HttpResponse("用户名或密码不正确！")
+            else:
                 print("successAdmin")
                 request.session['id'] = admin.id
                 request.session['type'] = "admin"
                 return render_to_response("backstage_index.html")
-            return render_to_response("index.html")
+            #return render_to_response("index.html")
         elif userType == 'registry':
             raise Http404
         elif userType == 'triage':
@@ -184,7 +194,7 @@ def add_hospital(request):
         new_hos.save()
 
         #bug-无法返回
-        return HttpResponse()
+        return HttpResponse("添加成功！")
     else:
         raise Http404
 
@@ -313,7 +323,8 @@ def add_dep(request):
 
         dep1 = Department.objects.filter(level=0)
 
-        return render(request, 'admin_dep_wh.html', {'departments_1': dep1})
+        #return render(request, 'admin_dep_wh.html', {'departments_1': dep1})
+        return HttpResponse("添加成功！")
 
 
     else:
@@ -341,7 +352,8 @@ def alter_dep(request):
 
         dep1 = Department.objects.filter(level=0)
 
-        return render(request, 'admin_dep_wh.html', {'departments_1': dep1})
+        #return render(request, 'admin_dep_wh.html', {'departments_1': dep1})
+        return HttpResponse("修改成功！")
 
 
     else:
@@ -359,7 +371,8 @@ def del_dep(request):
 
         dep1 = Department.objects.filter(level=0)
 
-        return render(request, 'admin_dep_wh.html', {'departments_1': dep1})
+        #return render(request, 'admin_dep_wh.html', {'departments_1': dep1})
+        return HttpResponse("删除成功！")
 
 
     else:
@@ -461,7 +474,8 @@ def add_doc(request):
 
         print("add doc worked!")
 
-        return render_to_response('admin_doc_wh.html')
+        #return render_to_response('admin_doc_wh.html')
+        return HttpResponse("添加成功！")
     else:
         raise Http404
 
@@ -483,10 +497,11 @@ def del_doc(request):
                 print(i)
                 Doctor.objects.get(id=i).delete() #用外键会连同doctor_dep和doc_hos一起删除
 
-            return render_to_response('admin_doc_wh.html')
+            #return render_to_response('admin_doc_wh.html')
+            return HttpResponse("删除成功！")
         else:
             print("fail")
-            raise Http404
+            raise HttpResponse("医生不存在！")
     else:
         raise Http404
 
@@ -567,7 +582,7 @@ def setToBeRe(request):
             date_format = t[2]+"-"+t[0]+"-"+t[1]+" 23:59:59"
             print(date_format)
             ToBeRegistered.objects.create(date=date_format, capacity=capacity, doctor_id_id=doc_id ).save()
-        return HttpResponse('ok')
+        return HttpResponse('设置成功！')
     else:
         raise Http404
 
@@ -604,7 +619,7 @@ def alter_to_be_registered(request):
             tmp.date = date
             tmp.save()
 
-        return HttpResponse("ok~")
+        return HttpResponse("修改成功！")
     else:
         raise  Http404
 
@@ -686,40 +701,46 @@ def show_reservation_order(request):
     if not request.method == "POST":
         raise Http404
     elif request.session['type']=="user":
-        toBeRegistered_id = request.POST.get('tobeR_id')
-        user_id = request.session['id']
-        #user_id = 1
-        #toBeRegistered_id = 1
 
-        user = User.objects.get(id=user_id)
-        toBeRegistered = ToBeRegistered.objects.get(id=toBeRegistered_id)
+        u = User.objects.get(id=request.session['id'])
+        if u.creditMark > 0:
 
-        if toBeRegistered.capacity == 0:
-            return HttpResponse("此医生已约满！")
+            toBeRegistered_id = request.POST.get('tobeR_id')
+            user_id = request.session['id']
+            #user_id = 1
+            #toBeRegistered_id = 1
 
+            user = User.objects.get(id=user_id)
+            toBeRegistered = ToBeRegistered.objects.get(id=toBeRegistered_id)
+
+            if toBeRegistered.capacity == 0:
+                return HttpResponse("此医生已约满！")
+
+            else:
+
+                #reservation_order = ReservationOrder.objects.create(toBeRegistered_id_id=toBeRegistered_id,user_id_id=user_id)
+                #reservation_order.save()
+
+                #cap = toBeRegistered.capacity
+                #toBeRegistered.capacity = cap - 1
+
+                #toBeRegistered.save()
+
+                doc = toBeRegistered.doctor_id
+                dep2 = Doctor_Department.objects.get(doctor_id=doc).department_id
+                dep1 = Department.objects.get(id=dep2.level)
+                hos = Doctor_Hospital.objects.get(doctor_id=doc).hospital_id
+
+
+
+
+                #挂号订单显示：User（用户姓名，身份证，手机号），（医院名字，科室，医生信息），（应就诊时间，订单生成时间）
+                return render_to_response('reservation_order.html',{'user': user,
+                                                                'doc': doc, 'dep1':dep1, 'dep2':dep2, 'hos':hos,
+                                                                'toBeRegistered': toBeRegistered,
+                                                                })
         else:
-
-            #reservation_order = ReservationOrder.objects.create(toBeRegistered_id_id=toBeRegistered_id,user_id_id=user_id)
-            #reservation_order.save()
-
-            #cap = toBeRegistered.capacity
-            #toBeRegistered.capacity = cap - 1
-
-            #toBeRegistered.save()
-
-            doc = toBeRegistered.doctor_id
-            dep2 = Doctor_Department.objects.get(doctor_id=doc).department_id
-            dep1 = Department.objects.get(id=dep2.level)
-            hos = Doctor_Hospital.objects.get(doctor_id=doc).hospital_id
-
-
-
-
-            #挂号订单显示：User（用户姓名，身份证，手机号），（医院名字，科室，医生信息），（应就诊时间，订单生成时间）
-            return render_to_response('reservation_order.html',{'user': user,
-                                                            'doc': doc, 'dep1':dep1, 'dep2':dep2, 'hos':hos,
-                                                            'toBeRegistered': toBeRegistered,
-                                                            })
+            return HttpResponse("用户信用等级不够！不能挂号！")
     else:
         return HttpResponse("用户还未登录!")
 
@@ -849,6 +870,35 @@ def alter_user_info(request):
             return Http404
     else:
         raise Http404
+
+
+def print_reservation(request):
+    if request.method == "POST":
+        re_id = request.POST.get('reservation_id')
+        re = Reservation.objects.get(id=re_id)
+        date=re.date
+
+        line = "挂号人："+re.user_id.name+"医生："+re.doctor_id.name+"应就诊时间："+date.strftime("%Y-%m-%d")
+
+
+        # Create the HttpResponse object with the appropriate PDF headers.
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="killit.pdf"'
+
+        # Create the PDF object, using the response object as its "file."
+        p = canvas.Canvas(response)
+
+        # Draw things on the PDF. Here's where the PDF generation happens.
+        # See the ReportLab documentation for the full list of functionality.
+        p.drawString(100, 100, line)
+
+        # Close the PDF object cleanly, and we're done.
+        p.showPage()
+        p.save()
+
+        return response
+    else:
+        Http404
 
 
 

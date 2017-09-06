@@ -153,8 +153,9 @@
                             </div>
                         </div>
                         <div class="panel-body">
+                            {% for reservation in reservations %}
                             <form class="form-horizontal" method="post" action="/OnlineRegister/del_reservation/">
-                                {% for reservation in reservations %}
+
                                     <label>预约单生成时间：<td>{{ reservation.createdTime|date:"Y-m-d H:i:s" }}</td></label>
                                     <br>
                                     {% for doc_hos in reservation.doctor_id.doctor_hospital_set.all %}
@@ -184,12 +185,18 @@
                                     {% else %}
                                         <input disabled="disabled" value="已就诊"></input>
                                     {% endif %}
-                                    <br>
+
+
+                            </form>
+                                <form method="post" action="/OnlineRegister/print_reservation/">
+                                    <input name="reservation_id" value="{{reservation.id}}" style="display: none">
+                                    <button type="submit">打印挂号单</button>
+                                </form>
+                                <br>
                                     <div class="row">
                                             <br>
                                         </div>
-                                {% endfor %}
-                            </form>
+                         {% endfor %}
                         </div>
                     </div>
                 </div>
